@@ -15,6 +15,7 @@ seaborn = "*"
 graphene = "*"
 flask-graphql = "*"
 pymongo = "*"
+flask-pymongo = "*"
 
 [requires]
 python_version = "3.8"
