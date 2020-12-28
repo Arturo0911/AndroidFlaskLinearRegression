@@ -1,1 +1,0 @@
-from flask-script import manage
