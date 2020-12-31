@@ -27,6 +27,11 @@ def holis():
         'name': "Arturo Negreiros"
     })
 
+@app.route("/testing")
+def testing():
+
+    return "I'm testing my server with docker"
+
 # Get methods
 # @app.route("/meteor", methods=['GET'])
 # def meteor():
