@@ -7,24 +7,22 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # Imports from the database directory
 from database import connection
 
-
+"""
 app = Flask(__name__)
 app.config['MONGO_URI'] = connection.connection()
 mongo = PyMongo(app)
-
+"""
 class Init_server():
     
     def __init__(self):
-        
-        self.port = 5000
+        """
+        Create the variables to 
+        generate the server
+        """
         self.app = None
         self.mongo = None
-        pass
 
-    def generate_connection(self):
-        pass
-
-    def app(self):
+    def app_connection(self):
         
         self.app = Flask(__name__)
         self.app.config['MONGO_URI'] = connection.connection()
@@ -32,9 +30,8 @@ class Init_server():
 
     def mongo_connection(self):
         
-        self.mongo = PyMongo()
-        
-        pass
+        self.mongo = PyMongo(self.app())
+        return self.mongo
     
     
 
@@ -100,4 +97,6 @@ def prediction():
 
 if __name__ == "__main__":
 
+    server = Init_server()
+    app = server.app_connection()
     app.run(port=5000, debug=True)
