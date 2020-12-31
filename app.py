@@ -12,6 +12,21 @@ app = Flask(__name__)
 app.config['MONGO_URI'] = connection.connection()
 mongo = PyMongo(app)
 
+class Init_server():
+    
+    def __init__(self):
+        
+        self.port = 5000
+        self.app = Flask(__name__)
+        self.app.config['MONGO_URI'] = connection.connection()
+        pass
+
+    def generate_connection(self):
+        pass
+    
+    pass
+
+"""
 @app.route("/")
 def hello_world():
     return "Hello world"
@@ -22,7 +37,6 @@ def about():
 
 @app.route("/holis")
 def holis():
-    
     return jsonify({
         'name': "Arturo Negreiros"
     })
@@ -31,7 +45,7 @@ def holis():
 def testing():
 
     return "I'm testing my server with docker"
-
+"""
 # Get methods
 # @app.route("/meteor", methods=['GET'])
 # def meteor():
@@ -41,7 +55,7 @@ def testing():
 
 # Mongo process
 
-
+"""
 # POST methods
 @app.route("/prediction", methods=['POST'])
 def prediction():
@@ -69,7 +83,7 @@ def prediction():
         return jsonify({'ErrorHandled': str(e)})
     else:
         pass
-    
+"""
         
 
 if __name__ == "__main__":
