@@ -5,35 +5,42 @@ from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # Imports from the database directory
+
+#----------------------------#
+#      IMPORTS               #
+#----------------------------#
 from database import connection
 
-"""
+
+
+
+#----------------------------#
+#      settings              #
+#----------------------------#
 app = Flask(__name__)
 app.config['MONGO_URI'] = connection.connection()
 mongo = PyMongo(app)
-"""
-class Init_server():
-    
-    def __init__(self):
-        """
-        Create the variables to 
-        generate the server
-        """
-        self.app = None
-        self.mongo = None
 
-    def app_connection(self):
-        
-        self.app = Flask(__name__)
-        self.app.config['MONGO_URI'] = connection.connection()
-        return self.app
 
-    def mongo_connection(self):
-        
-        self.mongo = PyMongo(self.app())
-        return self.mongo
-    
-    
+
+
+#----------------------------#
+#      ROUTES                #
+#----------------------------#
+@app.route("/")
+def index():
+    return "welcome to our API prediction model"
+
+@app.route("/home/<int:position>")
+def home_page(position):
+    # showing the position id
+    return "this is your position id %s"%position
+
+
+
+
+
+
 
 """
 @app.route("/")
@@ -97,6 +104,5 @@ def prediction():
 
 if __name__ == "__main__":
 
-    server = Init_server()
-    app = server.app_connection()
     app.run(port=5000, debug=True)
+    
