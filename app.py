@@ -16,6 +16,17 @@ mongo = PyMongo(app)
 def hello_world():
     return "Hello world"
 
+@app.route("/about")
+def about():
+    return "holis"
+
+@app.route("/holis")
+def holis():
+    
+    return jsonify({
+        'name': "Arturo Negreiros"
+    })
+
 # Get methods
 # @app.route("/meteor", methods=['GET'])
 # def meteor():
