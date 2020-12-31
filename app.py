@@ -17,14 +17,26 @@ class Init_server():
     def __init__(self):
         
         self.port = 5000
-        self.app = Flask(__name__)
-        self.app.config['MONGO_URI'] = connection.connection()
+        self.app = None
+        self.mongo = None
         pass
 
     def generate_connection(self):
         pass
+
+    def app(self):
+        
+        self.app = Flask(__name__)
+        self.app.config['MONGO_URI'] = connection.connection()
+        return self.app
+
+    def mongo_connection(self):
+        
+        self.mongo = PyMongo()
+        
+        pass
     
-    pass
+    
 
 """
 @app.route("/")
