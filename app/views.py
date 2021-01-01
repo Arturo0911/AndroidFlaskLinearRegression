@@ -1,5 +1,5 @@
 from app import app
-from flask import jsonify
+from flask import jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -28,11 +28,22 @@ def api():
             "Knowledge":["Python", "Java", "Javascript", "Docker", "Php"]
             })
 
-
-
-@app.route("/", methods=['POST'])
+@app.route("/model", methods=['POST'])
 def presentation():
-    
-    return jsonify({
-        ''
-    })
+    name = request.json['name']
+    print(name)
+
+    try:
+        if name:
+
+            return jsonify({
+                "status": "ok"
+            })
+        else:
+            return jsonify({
+                "status": "Server error"
+            })
+    except Exception as e:
+        return jsonify({
+            "exception": str(e)
+        })
