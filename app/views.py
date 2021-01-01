@@ -7,8 +7,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 #      ROUTES                #
 #----------------------------#
 
-
-
 @app.route("/")
 def index():
     return "welcome to our API prediction model"
@@ -23,5 +21,18 @@ def home_page(position):
 def api():
     return jsonify({
             "Id": "0918237421",
-            "Name": "Arturo"
+            "Name": "Arturo",
+            "Lname": "Negreiros Samanéz",
+            "Age":28,
+            "skills": "High",
+            "Knowledge":["Python", "Java", "Javascript", "Docker", "Php"]
             })
+
+
+
+@app.route("/", methods=['POST'])
+def presentation():
+    
+    return jsonify({
+        ''
+    })
