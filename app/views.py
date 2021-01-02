@@ -47,3 +47,19 @@ def presentation():
         return jsonify({
             "exception": str(e)
         })
+
+
+@app.route("/testing", methods=['GET', 'POST'])
+def testing():
+
+    if request.method == 'POST':
+
+        return jsonify({
+            'status': "post"
+        })
+    else:
+        pass
+
+
+
+
