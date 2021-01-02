@@ -2,6 +2,7 @@ from app import app
 from flask import jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from database import Process
 
 #----------------------------#
 #      ROUTES                #
@@ -55,12 +56,24 @@ def testing():
     try:
 
         if request.method == 'POST':
+            
+            identification = request.json['identification']
+            name = request.json['name']
+            username = request.json['username']
+            password = request.json['password']
+        
+            if identification and password:
 
-
-
-            return jsonify({
-                'status': "post"
-            })
+                # print("password before hash: ", password)
+                # print("password after hash: ", generate_password_hash(password))
+                password_hashed = generate_password_hash(password)
+                userId = Process.insert_data_MONGODB(name, identification, 
+                username,password_hashed)
+                return jsonify({
+                    'status': str(userId)
+                })
+            else:
+                pass
         else:
             pass
     except Exception as e:
