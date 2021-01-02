@@ -2,7 +2,9 @@
 Store in Mongo db
 """
 
+from flask.wrappers import Response
 from app import mongo
+from bson import json_util
 
 
 # Queries
@@ -23,4 +25,10 @@ def insert_data_MONGODB(name, identification,username, password):
     return usersId
 
 def find_data_MONGODB():
-    pass
+    # this method is to find any element
+    # using the identification parameter
+
+    parameters_finded = mongo.db.users.find()
+    response = json_util.dumps(parameters_finded)
+    return response
+    #return Response(response, mimetype='application/json')

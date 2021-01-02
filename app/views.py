@@ -1,3 +1,4 @@
+from flask.wrappers import Response
 from app import app
 from flask import jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -64,8 +65,6 @@ def testing():
         
             if identification and password:
 
-                # print("password before hash: ", password)
-                # print("password after hash: ", generate_password_hash(password))
                 password_hashed = generate_password_hash(password)
                 userId = Process.insert_data_MONGODB(name, identification, 
                 username,password_hashed)
@@ -74,8 +73,11 @@ def testing():
                 })
             else:
                 pass
-        else:
-            pass
+        elif request.method == 'GET':
+            
+            answer = Process.find_data_MONGODB()
+
+            return Response(answer, mimetype='application/json')
     except Exception as e:
         return jsonify({
             'status': "error by: "+str(e)
