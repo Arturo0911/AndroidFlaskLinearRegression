@@ -4,7 +4,7 @@ from flask import jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from database import Process
-
+from error_handlers import Error_server
 #----------------------------#
 #      ROUTES                #
 #----------------------------#
@@ -63,7 +63,7 @@ def testing():
             username = request.json['username']
             password = request.json['password']
         
-            if identification and password:
+            if name and identification and password and username:
 
                 password_hashed = generate_password_hash(password)
                 userId = Process.insert_data_MONGODB(name, identification, 
@@ -72,16 +72,16 @@ def testing():
                     'status': str(userId)
                 })
             else:
-                pass
+                return Error_server.not_found()
         elif request.method == 'GET':
             
             answer = Process.find_data_MONGODB()
+        
 
             return Response(answer, mimetype='application/json')
     except Exception as e:
-        return jsonify({
-            'status': "error by: "+str(e)
-        })
+
+        pass
 
 
 
