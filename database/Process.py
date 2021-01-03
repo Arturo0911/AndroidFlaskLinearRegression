@@ -12,6 +12,7 @@ def insert_data_MONGODB(name, identification,username, password):
     # to store main data into the db
     # the id filed is to identification as cedula or dni
     # in some places
+    # INSERT INTO <table name>
 
     usersId = mongo.db.users.insert(
         {   
@@ -25,8 +26,8 @@ def insert_data_MONGODB(name, identification,username, password):
     return usersId
 
 def find_data_MONGODB():
-    # this method is to find any element
-    # using the identification parameter
+    # this method is to find all elements
+    # SELECT * FROM <table name>;
 
     parameters_finded = mongo.db.users.find()
     response = json_util.dumps(parameters_finded)
