@@ -11,7 +11,8 @@ from error_handlers import Error_server
 
 @app.route("/")
 def index():
-    return "welcome to our API prediction model"
+    
+    return "Payload"
 
 @app.route("/home/<int:position>")
 def home_page(position):
@@ -19,7 +20,7 @@ def home_page(position):
     return "this is your position id %s"%position
 
 
-@app.route("/api")
+@app.route("/api", methods=['GET'])
 def api():
     return jsonify({
             "Id": "0918237421",

@@ -33,3 +33,16 @@ def find_data_MONGODB():
     response = json_util.dumps(parameters_finded)
     return response
     #return Response(response, mimetype='application/json')
+
+def find_one_element(parameter):
+    # find one element using the parameter as filter
+    # SELECT FROM <tabla name> WHERE <column name> = ${parameter}
+    pass
+
+
+def delete_element(parameter):
+    # Delete one element using the parameter as filter
+    # DELETE FROM <table name> WHERE <column name > is parameter
+
+
+    pass
