@@ -70,12 +70,11 @@ def testing():
 
         if request.method == 'POST':
                 
-            
             identification = request.json['identification']
             name = request.json['name']
             username = request.json['username']
             password = request.json['password']
-        
+
             if name and identification and password and username:
 
                 password_hashed = generate_password_hash(password)
@@ -85,7 +84,9 @@ def testing():
                     'status': str(userId)
                 })
             else:
+
                 return Error_server.not_found()
+
         elif request.method == 'GET':
             
             answer = Process.find_data_MONGODB()
@@ -97,3 +98,26 @@ def testing():
         return jsonify({
                 "status": str(e)
         })
+
+
+@app.route("/android", methods=['GET','POST'])
+def android():
+    
+    if request.method == "POST":
+        print("the request method has been required")
+        print(request.json)
+        return jsonify({
+                "status": "POST method is requred"
+            })
+    else:
+        return jsonify({
+                
+                'status':'GET method is required',
+                'status_code': 200
+            })
+    
+
+
+
+
+
