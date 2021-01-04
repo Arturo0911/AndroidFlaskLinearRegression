@@ -29,14 +29,18 @@ def home_page(position):
 
 @app.route("/api", methods=['GET'])
 def api():
-    return jsonify({
-            "Id": "0918237421",
-            "Name": "Arturo",
-            "Lname": "Negreiros Samanéz",
-            "Age":28,
-            "skills": "High",
-            "Knowledge":["Python", "Java", "Javascript", "Docker", "Php"]
-            })
+        
+    
+    message = {
+            "Id":"0918237421",
+            "Name":"Arturo Francesco",
+            "Lname": "Negreiros Samanez",
+            "Age": 28,
+            "Skills": "High"
+        }
+
+    print(message)
+    return jsonify(message)
 
 @app.route("/model", methods=['POST'])
 def presentation():
