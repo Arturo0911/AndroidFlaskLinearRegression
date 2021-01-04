@@ -12,12 +12,19 @@ from error_handlers import Error_server
 @app.route("/")
 def index():
     
-    return "Payload"
+    return jsonify({
+            "status": "working api"
+        })
 
 @app.route("/home/<int:position>")
 def home_page(position):
     # showing the position id
-    return "this is your position id %s"%position
+
+    return jsonify({
+               
+        "position": position
+        })
+    # return "this is your position id %s"%position
 
 
 @app.route("/api", methods=['GET'])
@@ -58,6 +65,7 @@ def testing():
     try:
 
         if request.method == 'POST':
+                
             
             identification = request.json['identification']
             name = request.json['name']
@@ -81,8 +89,7 @@ def testing():
 
             return Response(answer, mimetype='application/json')
     except Exception as e:
-
-        pass
-
-
-
+        
+        return jsonify({
+                "status": str(e)
+        })
