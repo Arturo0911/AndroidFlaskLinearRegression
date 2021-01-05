@@ -34,10 +34,12 @@ def find_data_MONGODB():
     return response
     #return Response(response, mimetype='application/json')
 
-def find_one_element(parameter):
+def find_one_element(username):
     # find one element using the parameter as filter
     # SELECT FROM <tabla name> WHERE <column name> = ${parameter}
-    pass
+
+    element_finded = mongo.db.users.find({'username': username,})
+    return element_finded
 
 
 def delete_element(parameter):

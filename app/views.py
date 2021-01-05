@@ -1,7 +1,10 @@
 from flask.wrappers import Response
 from app import app
+from bson import json_util
 from flask import jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
+import json
+
 
 from database import Process
 from error_handlers import Error_server
@@ -97,16 +100,38 @@ def testing():
                 return Error_server.not_found()
 
         elif request.method == 'GET':
-            
             answer = Process.find_data_MONGODB()
-        
             print(type(answer))
+            print(answer)
             return Response(answer, mimetype='application/json')
     except Exception as e:
         
         return jsonify({
                 "status": str(e)
         })
+@app.route("/auth/<username>", methods=['GET'])
+def auth(username):
+    try:
+
+        users_finded = Process.find_one_element(str(username))
+        
+        response = json_util.dumps(users_finded)
+        # print(response)
+        # print(type(response))
+        new = json.loads(response)
+        print(new)
+
+        for x in new[0]:
+            print(new[0][x])
+
+
+        return  Response(response, mimetype='application/json')
+    except Exception as e:
+        return "Error by: "+str(e)
+
+
+
+
 
 
 @app.route("/android", methods=['GET','POST'])
