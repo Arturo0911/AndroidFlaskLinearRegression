@@ -5,13 +5,20 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from database import Process
 from error_handlers import Error_server
+from app.helpers import check_passwords
 #----------------------------#
 #      ROUTES                #
 #----------------------------#
 
-@app.route("/")
+@app.route("/", methods=['GET','POST'])
 def index():
     
+    """if request.method == 'POST':
+        
+    else:
+        pass"""
+
+
     return jsonify({
             "status": "working api"
         })
@@ -77,11 +84,13 @@ def testing():
 
             if name and identification and password and username:
 
-                password_hashed = generate_password_hash(password)
+                password_hashed = check_passwords.password_hash(password)
+                print(password_hashed)
                 userId = Process.insert_data_MONGODB(name, identification, 
                 username,password_hashed)
                 return jsonify({
-                    'status': str(userId)
+                    'status': str(userId),
+                    'status_code': 200
                 })
             else:
 
@@ -91,7 +100,7 @@ def testing():
             
             answer = Process.find_data_MONGODB()
         
-
+            print(type(answer))
             return Response(answer, mimetype='application/json')
     except Exception as e:
         
