@@ -106,13 +106,19 @@ def android():
     if request.method == "POST":
         print("the request method has been required")
         print(request.json)
+
+        id = request.json['Id']:
+            pass    
+        else:
+            pass    
         return jsonify({
-                "status": "POST method is requred"
+                "status": "POST",
+                "status_code": 200
             })
     else:
         return jsonify({
                 
-                'status':'GET method is required',
+                'status':'GET',
                 'status_code': 200
             })
     
