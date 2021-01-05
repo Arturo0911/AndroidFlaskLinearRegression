@@ -107,14 +107,27 @@ def android():
         print("the request method has been required")
         print(request.json)
 
-        id = request.json['Id']:
-            pass    
-        else:
-            pass    
-        return jsonify({
-                "status": "POST",
+        fullname = request.json['Fullname']
+        email = request.json['Email']
+        password = generate_password_hash(request.json['Password'])
+
+        if fullname and email and password:
+
+            object_to_store = {
+
+                    "fullname": fullname,
+                    "email": email, 
+                    "password":password
+                    }
+            print(object_to_store)
+            return jsonify({
+
+                "status": "POST ok",
                 "status_code": 200
-            })
+                    
+                })
+        else:
+            return Error_server.not_found()   
     else:
         return jsonify({
                 
