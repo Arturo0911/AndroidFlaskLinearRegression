@@ -122,9 +122,17 @@ def auth(username, password):
         response = json_util.dumps(users_finded)
         response_jsoned = json.loads(response)
         password_hashed = response_jsoned[0]['password']
+        
+        # credentials
+        object_response = {
+                "id_certification": response_jsoned[0]['identification'],
+                "username":response_jsoned[0]['username'] ,
+                "Name": response_jsoned[0]['name']
 
+                }
+        object_response = json_util.dumps(object_response)
         if check_passwords.confirm_password(password, password_hashed):
-            return  Response(response, mimetype='application/json')
+            return  Response(object_response, mimetype='application/json')
         else:
             return jsonify({
                     'status': "error in credentials"

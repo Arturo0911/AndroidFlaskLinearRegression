@@ -13,4 +13,15 @@ def not_found(error = None):
     response.status_code = 404
 
     return response
+
+@app.
+def error_authentication():
     
+    try:
+        pass
+
+    except:
+
+        pass
+
+    return None
