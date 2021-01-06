@@ -112,10 +112,13 @@ def testing():
 @app.route("/auth/<username>/<password>", methods=['GET'])
 def auth(username, password):
     try:
-
+        # instance the method to find into Mongdb 
+        # and create a variable to asign tha values.
         users_finded = Process.find_one_element(str(username))
         
-        # Create the response variable to catch json query from Mongodb
+        # Create the response variable to catch json query from Mongodb.
+        # After that create two variables; one for use the json.loads function
+        # and the another one to get the password hashed asigned
         response = json_util.dumps(users_finded)
         response_jsoned = json.loads(response)
         password_hashed = response_jsoned[0]['password']
@@ -123,7 +126,9 @@ def auth(username, password):
         if check_passwords.confirm_password(password, password_hashed):
             return  Response(response, mimetype='application/json')
         else:
-            pass
+            return jsonify({
+                    'status': "error in credentials"
+                })
     except Exception as e:
         return "Error by: "+str(e)
 
