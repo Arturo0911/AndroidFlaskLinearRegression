@@ -109,23 +109,21 @@ def testing():
         return jsonify({
                 "status": str(e)
         })
-@app.route("/auth/<username>", methods=['GET'])
-def auth(username):
+@app.route("/auth/<username>/<password>", methods=['GET'])
+def auth(username, password):
     try:
 
         users_finded = Process.find_one_element(str(username))
         
+        # Create the response variable to catch json query from Mongodb
         response = json_util.dumps(users_finded)
-        # print(response)
-        # print(type(response))
-        new = json.loads(response)
-        print(new)
+        response_jsoned = json.loads(response)
+        password_hashed = response_jsoned[0]['password']
 
-        for x in new[0]:
-            print(new[0][x])
-
-
-        return  Response(response, mimetype='application/json')
+        if check_passwords.confirm_password(password, password_hashed):
+            return  Response(response, mimetype='application/json')
+        else:
+            pass
     except Exception as e:
         return "Error by: "+str(e)
 
