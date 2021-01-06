@@ -138,7 +138,7 @@ def auth(username, password):
                     'status': "error in credentials"
                 })
     except Exception as e:
-        return "Error by: "+str(e)
+        return jsonify({'status': 'Error by: '+str(e) })
 
 
 

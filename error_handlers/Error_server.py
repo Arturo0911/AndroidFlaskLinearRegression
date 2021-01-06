@@ -14,7 +14,7 @@ def not_found(error = None):
 
     return response
 
-@app.
+#@app.
 def error_authentication():
     
     try:
