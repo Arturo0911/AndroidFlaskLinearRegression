@@ -107,7 +107,7 @@ def create_objects_from_clouds(api_object):
         'Broken_clouds':math_process.average(broken_cloud_object,'Broken_clouds'),
         'Few_clouds':math_process.average(few_clouds_object,'Few_clouds'),
         'Clear_Sky':math_process.average(clear_sky_object,'Clear_Sky'),
-        'Light_rain':math_process.average(light_ran_object,'Light_rain'),
+        'Light_rain':math_process.average(light_rain_object,'Light_rain'),
         'Scattered_clouds':math_process.average(scattered_cloud_object,'Scattered_clouds')
         }
 
@@ -119,4 +119,6 @@ def make_list():
     description_cloud_list = ['Overcast_clouds','Broken_clouds','Few_clouds', 'Clear_Sky','Light_rain','Scattered_clouds']
 
     return description_cloud_list
+
+
 
