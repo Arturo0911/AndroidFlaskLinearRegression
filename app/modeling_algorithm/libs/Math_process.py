@@ -7,6 +7,9 @@ from pprint import pprint
 import random
 from concurrent.futures import ThreadPoolExecutor
 from types import new_class 
+import pandas as pd
+import numpy as np
+import seaborn as sns
 
 
 #----------------------------------------------#
@@ -152,13 +155,6 @@ class Math_process:
             }
             print("\n")
             pprint(prediction)
-
-    def learning_supervised(self):
-        #--------------------------------------------------#
-        # This method will evaluate the value of percents  #
-        # of the test in the self method test_math_model   #
-        #--------------------------------------------------#
-        pass
 
     def _define_average(self, number, length):
 
@@ -317,9 +313,10 @@ class Math_process:
 
         pass
 
-    def testing_mathematician_model(self, objects_data, x_data_model, y_data_model, year_tested):
+    def testing_mathematician_model(self, objects_data, x_data_model, y_data_model, year_tested, cloud_type, 
+    time_base, time_prediction):
         '''
-        testing the math model taking in aacount about 
+        testing the math model taking in account about 
         the values to be proccessed
         the another goal in this method is take how many variables 
         (speaking in percent) aren't matching with the parameters, 
@@ -339,25 +336,42 @@ class Math_process:
         Resuming above, after three days, i gonna prove that algorithm
     
         '''
-
-        #----------------------------------------------#
-        #    Structure of the obejcts_data = {         #
-        #            'x': list,                        #
-        #            'y': list                         #
-        #           }                                  #
-        #----------------------------------------------#
-
-
         # Define the intercept 'b' as None value
         # in the gradient descent prove the real value
         # initialize in None to avoid unnecessary numbers
         b = None # the bias
         percent_difference = None
-        validator = None        
+        validator = None
+        percent_accuracy = None
+        _description = None
         count_cases = 0 # the position of each loop
         values_near_to_goal = list()
         values_tested = list()
+        values_percent = list()
         total_error = 0.0 # this one gonna to get all the values without prediction
+        # object_prediction = {} # setting the object prediction to append the values including the accuracy
+        dates_matched = list() # the days whenever matched betwen prediction and values from the data training
+
+
+                            #-------------------------------------------------------#
+                            #   object_prediction = {                               #
+                            #                                                       #
+                            #       'days_tested': list_days_tested,                #
+                            #       'dates_matched': list_days_matched,             #
+                            #       'accuracy': accuracy,                           #
+                            #       'cost_function': cost_function,                 #
+                            #       'precission':precission,                        #
+                            #       'info': {
+                            #           'cloud_type': cloud_type                    #
+                            #           'values_accepted':values_near_to_goal,      #
+                            #           'values_tested': values_tested,             #
+                            #           'description': ''                           #
+                            #       }                                               #
+                            #                                                       #
+                            #   }                                                   #
+                            #-------------------------------------------------------#
+
+
         
 
         math_model = self.Generate_parameters_from_regression(objects_data)
@@ -365,100 +379,65 @@ class Math_process:
         
         try:
             
-            '''for x, y in zip(x_data_model, y_data_model):
-
-                count_cases += 1
-                validator = self.y_prediction(math_model['β0'], math_model['β1'], x)
-
-                if validator  == y:
-                    print("[*] Test case Passed!")
-                else:
-
-                    if b is not None:
-                        
-                        print("bias isn't None ")
-                        validator += b
-                        percent_difference = float("{0:.3f}".format( 100 -((y/validator)*100)))
-
-                        while True:
-                            # bias, data, beta_0, beta_1, x_value
-                            if (percent_difference <= float(3) and percent_difference >= float(-3) and 
-                            self.check_bias(b, values_near_to_goal,math_model['β0'], math_model['β1'],x)):
-                                values_near_to_goal.append(y)
-                                break
-                            else:
-                                while True:
-                                    b = random.uniform(-4,4)
-                                    validator += b
-                                    percent_difference = float("{0:.3f}".format( 100 -((y/validator)*100)))
-                                    # self.executor(self.check_bias, ) 
-                                    if percent_difference <=  float(3) and percent_difference >= float(-3):
-                                        print(" [*] Enter in the conditional with the random uniform to bias different from None")
-                                        values_near_to_goal.append(y)
-                                        break
-                                    else:
-                                        continue
-                    else:
-
-                        percent_difference = float("{0:.3f}".format( 100 -((y/validator)*100)))
-
-                        # in the case that the value is in the range of difference beteen -3 or 3
-                        # in this case add into the append the new value
-                        if percent_difference <=  float(3) and percent_difference >= float(-3):
-                            values_near_to_goal.append(y)
-                            
-                        else:
-                            while True:
-                                # in this loop i try to prove that generated random number 
-                                # between -4  and 4, including floating numbers.
-                                # i gonna to balanced the math model, only to avoid 
-                                # generated a big MSE, practically is i'm avoiding the errors
-                            
-                                b = random.uniform(-4,4)
-                                validator += b
-                                percent_difference = float("{0:.3f}".format( 100 -((y/validator)*100)))
-                                # self.executor(self.check_bias, ) 
-                                if percent_difference <=  float(3) and percent_difference >= float(-3):
-                                    print(" [*] Enter in the conditional with the random uniform to bias different from None")
-                                    values_near_to_goal.append(y)
-                                    break
-                                else:
-                                    continue'''
             for x,y in zip(x_data_model, y_data_model):
-                validator = self.y_prediction(math_model['β0'], math_model['β1'], x)
 
-                if (validator - y == 0) or ((validator - y) >= -3 and (validator - y )<= 3):
-                    # print("[*] Error margin prediction is 0 or is lesser than 3 and greater than -3")
-                    # print("the validator %s and the value desired %s  and the accerts about the prediction are %s percent"%(validator, y,
-                    # float("{0:.2f}".format(100 - ((y/validator) *)))))
+                validator = self.y_prediction(math_model['β0'], math_model['β1'], x)
+                # percent_accuracy = float("{0:.3f}".format(((validator*100)/y)))
+                percent_difference = float("{0:.3f}".format( 100 -((validator*100)/y)))
+
+                if percent_difference >= -float(15) and percent_difference <= float(15) :
+
                     values_near_to_goal.append(y)
                     values_tested.append(validator)
+                    # values_percent.append(percent_accuracy)
+                else:
+                    continue
+            
+
+            # average_values_accerted = float((sum(values_percent) / (len(values_percent))))
+            percent_accuracy = float("{0:.2f}".format((len(values_near_to_goal)/len(x_data_model))*100))
+            
+            if percent_accuracy >= float(70):
+                _description = """in the case that the days has matched and the percent of accuracy is greater than 70% then the """
+            elif (percent_accuracy < float(70)):
+                _description = ""
+                pass
+            
+            for a,b in zip(time_base,time_prediction):
+                if a[5:10] == b[5:10]:
+                    dates_matched.append(b[5:10])
                 else:
                     pass
-                    
 
+
+            object_prediction = {
+                'days_tested': len(time_prediction),
+                'dates_matched':dates_matched,
+                'accuracy':percent_accuracy ,
+                #'cost_function':self.cost_function(),
+                # 'average_values_accerted': average_values_accerted,
+                'info':{
+                    'cloud_type':cloud_type,
+                    'values_acepted':len(values_near_to_goal),
+                    'values_tested':len(y_data_model),
+                    'description': _description
+                }
+            }
+
+            return object_prediction
         except Exception as e:
-            print(" exception by: "+str(e))
-        else:
-            pass
-        finally:
-            # print(" Test cases finished.")
-            print(" Year tested %s"%year_tested)
-            # print(" Status final by the bias: %s"%b)
-            # print(" Total cases %s"%count_cases)
-            
-            # print(self.print_linear_equation(math_model['β0'], math_model['β1']))
-            print(" Test cases aproved by the conditional %s"%len(values_near_to_goal))
-            # print(values_near_to_goal)
-            # print(" The total errores are %s percent "%(float(total_error / len(x_data_model))))
+            return {'error': str(e)}          
+        
 
-        # for a,b in zip(values_tested, values_near_to_goal):
-        #     print(a,b)
+        
 
+        '''
+        Generate another interator to index the dates whenver the phenom metorology happend,
+        and append into the another array and make the prediction between the days whenever happen, e.i, 
+        the match with the dates, when dates makes match <3 I love you Arturo, You can anything that you 
+        purpose yourself
 
-    '''Function to support the conditional in above methods
-        to be clare, is for only suppor.
-    '''
+        '''
             
     def print_linear_equation(self, beta_0, beta_1):
 

@@ -8,8 +8,9 @@ from os.path import *
 # The main directory whenever the data gonna be stored
 # MAIN_DIRECTORY = '.csv_api'
 # CO_MAIN_DIRECTORY = '.clouds_parameters'
-from Math_process import Math_process
+# from Math_process import Math_process
 
+from app.modeling_algorithm.libs.Math_process import Math_process
 
 # Here we will storage about cloud behavior
 # how have the clouds been

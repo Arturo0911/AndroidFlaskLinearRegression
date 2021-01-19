@@ -9,48 +9,32 @@ import json
 from database import Process
 from error_handlers import Error_server
 from app.helpers import check_passwords
+from app.modeling_algorithm.libs.keys import keys
 #----------------------------#
 #      ROUTES                #
 #----------------------------#
 
-@app.route("/", methods=['GET','POST'])
+@app.route("/", methods=['GET'])
 def index():
-    
-    """if request.method == 'POST':
-        
-    else:
-        pass"""
-
-
     return jsonify({
-            "status": "working api"
+            "Information":{
+                'data direction':' https://www.weatherbit.io/api/weather-history-hourly'
+            },
+            "status": "Model prediction",
+            "status code": 200
         })
-
-@app.route("/home/<int:position>")
-def home_page(position):
-    # showing the position id
-
-    return jsonify({
-               
-        "position": position
-        })
-    # return "this is your position id %s"%position
-
 
 @app.route("/api", methods=['GET'])
 def api():
         
-    
-    message = {
-            "Id":"0918237421",
-            "Name":"Arturo Francesco",
-            "Lname": "Negreiros Samanez",
-            "Age": 28,
-            "Skills": "High"
-        }
+    print(keys.url_from_API)
+    return jsonify(keys.url_from_API)
 
-    print(message)
-    return jsonify(message)
+
+
+
+
+
 
 @app.route("/model", methods=['POST'])
 def presentation():
