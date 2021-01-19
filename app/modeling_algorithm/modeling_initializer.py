@@ -1,3 +1,4 @@
+from app import app
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -15,7 +16,7 @@ from app.modeling_algorithm.libs import CSV
 from app.modeling_algorithm.libs import API_values
 from app.modeling_algorithm.libs import Create_days
 from app.modeling_algorithm.libs import Interface_objects
-from app.modeling_algorithm.libs.keys import keys
+# from app.modeling_algorithm.libs.keys import keys
 
 
 # CONSTANTS
@@ -38,19 +39,20 @@ url_from_API = {
 }
 
 
-# if __name__ == "__main__":
+#if __name__ == "__main__":
 def initializer():
     # Instantiate from Create_days class
 
-    days = Create_days()
+    days = Create_days.Create_days()
     days.generate_appends()
 
-    new_query = API_values(keys.url_from_API['latitude'], keys.url_from_API['longitude'])
+
+    new_query = API_values.API_values('-2.335017', '-80.229769')  # API_values('-2.335017', '-80.229769')
     CSV.create_hidden_directories()
     for x in days.get_objects():
 
         for i in Interface_objects.make_list():
-
+            print(i)
             CSV.create_headers_into_hidden_directories(x,x,i)
 
         for y in range(1,len(days.get_objects()[x])):

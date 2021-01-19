@@ -1,6 +1,7 @@
 """ 
 IN THIS FILE, WE GONNA TEST THE DATA, USING COMPARATIONS BETWEEN DATAS, AND PARAMETERS   
 """
+from app import app
 import time
 from datetime import time
 from Interface_objects import make_list

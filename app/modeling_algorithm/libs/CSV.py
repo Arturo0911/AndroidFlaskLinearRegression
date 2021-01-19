@@ -4,6 +4,7 @@ from datetime import date, timedelta
 import json
 import os 
 from os.path import *
+from app import app
 
 # The main directory whenever the data gonna be stored
 # MAIN_DIRECTORY = '.csv_api'

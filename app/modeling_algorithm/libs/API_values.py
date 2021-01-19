@@ -1,3 +1,4 @@
+from app import app
 import requests
 from urllib.request import urlopen
 from urllib.error import HTTPError

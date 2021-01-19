@@ -13,10 +13,7 @@ def password_hash(password):
 
 def confirm_password(password, password_hashed):
 
-    try:
-        return check_password_hash(password_hashed, password)
-    except:
-        return None
+    return check_password_hash(password_hashed, password)
 
 
 

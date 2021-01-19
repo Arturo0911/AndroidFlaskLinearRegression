@@ -1,3 +1,5 @@
+from app import app
+
 url_from_API = {
     'latitude': '-2.335017',
     'longitude':'-80.229769',

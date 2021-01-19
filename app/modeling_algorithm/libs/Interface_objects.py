@@ -1,4 +1,4 @@
-
+from app import app
 from app.modeling_algorithm.libs.Math_process import Math_process 
 #  Function to append new instances from the api
 

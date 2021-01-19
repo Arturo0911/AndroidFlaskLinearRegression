@@ -2,6 +2,7 @@
 
 
 """ MATH PROCESS  """
+from app import app
 import math
 from pprint import pprint
 import random

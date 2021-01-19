@@ -4,36 +4,53 @@ from bson import json_util
 from flask import jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
-
+import os
+from os.path import isdir
 
 from database import Process
 from error_handlers import Error_server
 from app.helpers import check_passwords
-from app.modeling_algorithm.libs.keys import keys
+# from app.modeling_algorithm.libs.keys import keys
+from app.modeling_algorithm import modeling_initializer
+
+
+from app.modeling_algorithm.libs import CSV
+from app.modeling_algorithm.libs import API_values
+from app.modeling_algorithm.libs.Create_days import Create_days
+from app.modeling_algorithm.libs import Interface_objects
+# from app.modeling_algorithm.libs.keys import keys
+
+
 #----------------------------#
 #      ROUTES                #
 #----------------------------#
 
 @app.route("/", methods=['GET'])
 def index():
+
     return jsonify({
-            "Information":{
-                'data direction':' https://www.weatherbit.io/api/weather-history-hourly'
-            },
-            "status": "Model prediction",
-            "status code": 200
-        })
+        "Information": {
+            'data direction': ' https://www.weatherbit.io/api/weather-history-hourly'
+        },
+        "status": "Model prediction",
+        "status code": 200
+    })
 
-@app.route("/api", methods=['GET'])
+
+@app.route("/api", methods=['POST'])
 def api():
-        
-    print(keys.url_from_API)
-    return jsonify(keys.url_from_API)
 
+    if isdir('.csv'):
+        pass
+    else:
+        modeling_initializer.initializer()
+    return jsonify(jsonify({
 
+        'status':'generated successfully',
+        'status code': 200
+    }))
 
-
-
+    
 
 
 @app.route("/model", methods=['POST'])
@@ -63,7 +80,7 @@ def testing():
     try:
 
         if request.method == 'POST':
-                
+
             identification = request.json['identification']
             name = request.json['name']
             username = request.json['username']
@@ -73,8 +90,8 @@ def testing():
 
                 password_hashed = check_passwords.password_hash(password)
                 print(password_hashed)
-                userId = Process.insert_data_MONGODB(name, identification, 
-                username,password_hashed)
+                userId = Process.insert_data_MONGODB(name, identification,
+                                                     username, password_hashed)
                 return jsonify({
                     'status': str(userId),
                     'status_code': 200
@@ -89,49 +106,47 @@ def testing():
             print(answer)
             return Response(answer, mimetype='application/json')
     except Exception as e:
-        
+
         return jsonify({
-                "status": str(e)
+            "status": str(e)
         })
+
+
 @app.route("/auth/<username>/<password>", methods=['GET'])
 def auth(username, password):
     try:
-        # instance the method to find into Mongdb 
+        # instance the method to find into Mongdb
         # and create a variable to asign tha values.
         users_finded = Process.find_one_element(str(username))
-        
+
         # Create the response variable to catch json query from Mongodb.
         # After that create two variables; one for use the json.loads function
         # and the another one to get the password hashed asigned
         response = json_util.dumps(users_finded)
         response_jsoned = json.loads(response)
         password_hashed = response_jsoned[0]['password']
-        
+
         # credentials
         object_response = {
-                "id_certification": response_jsoned[0]['identification'],
-                "username":response_jsoned[0]['username'] ,
-                "Name": response_jsoned[0]['name']
+            "id_certification": response_jsoned[0]['identification'],
+            "username": response_jsoned[0]['username'],
+            "Name": response_jsoned[0]['name']
 
-                }
+        }
         object_response = json_util.dumps(object_response)
         if check_passwords.confirm_password(password, password_hashed):
-            return  Response(object_response, mimetype='application/json')
+            return Response(object_response, mimetype='application/json')
         else:
             return jsonify({
-                    'status': "error in credentials"
-                })
+                'status': "error in credentials"
+            })
     except Exception as e:
-        return jsonify({'status': 'Error by: '+str(e) })
+        return jsonify({'status': 'Error by: '+str(e)})
 
 
-
-
-
-
-@app.route("/android", methods=['GET','POST'])
+@app.route("/android", methods=['GET', 'POST'])
 def android():
-    
+
     if request.method == "POST":
         print("the request method has been required")
         print(request.json)
@@ -144,28 +159,22 @@ def android():
 
             object_to_store = {
 
-                    "fullname": fullname,
-                    "email": email, 
-                    "password":password
-                    }
+                "fullname": fullname,
+                "email": email,
+                "password": password
+            }
             print(object_to_store)
             return jsonify({
 
                 "status": "POST ok",
                 "status_code": 200
-                    
-                })
+
+            })
         else:
-            return Error_server.not_found()   
+            return Error_server.not_found()
     else:
         return jsonify({
-                
-                'status':'GET',
-                'status_code': 200
-            })
-    
 
-
-
-
-
+            'status': 'GET',
+            'status_code': 200
+        })
