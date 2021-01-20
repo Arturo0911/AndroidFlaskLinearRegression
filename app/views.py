@@ -18,6 +18,8 @@ from app.modeling_algorithm.libs import CSV
 from app.modeling_algorithm.libs import API_values
 from app.modeling_algorithm.libs.Create_days import Create_days
 from app.modeling_algorithm.libs import Interface_objects
+from app.modeling_algorithm.creating_process import Init_test
+from app.modeling_algorithm.creating_process import main
 # from app.modeling_algorithm.libs.keys import keys
 
 
@@ -44,34 +46,25 @@ def api():
         pass
     else:
         modeling_initializer.initializer()
-    return jsonify(jsonify({
+    return jsonify({
 
         'status':'generated successfully',
         'status code': 200
-    }))
+    })
 
     
 
 
-@app.route("/model", methods=['POST'])
+@app.route("/model", methods=['GET'])
 def presentation():
-    name = request.json['name']
-    print(name)
+    
+    init_test = Init_test()
+    info_test = main()
 
-    try:
-        if name:
-
-            return jsonify({
-                "status": "ok"
-            })
-        else:
-            return jsonify({
-                "status": "Server error"
-            })
-    except Exception as e:
-        return jsonify({
-            "exception": str(e)
-        })
+    return jsonify({
+        'info': info_test,
+        'info_values': str(init_test._comparative_between_three_years()) 
+    })
 
 
 @app.route("/testing", methods=['GET', 'POST'])

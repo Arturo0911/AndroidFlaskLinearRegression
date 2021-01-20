@@ -80,6 +80,7 @@ def create_hidden_directories():
             os.makedirs(new_main_directory+'.'+x+'/.2017')
             os.makedirs(new_main_directory+'.'+x+'/.2018')
             os.makedirs(new_main_directory+'.'+x+'/.2019')
+            os.makedirs(new_main_directory+'.'+x+'/.2020')
         return None
 create_hidden_directories()
 # reate_main_directories() call this method to access to global variable

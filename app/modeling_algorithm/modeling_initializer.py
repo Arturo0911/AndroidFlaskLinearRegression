@@ -52,7 +52,7 @@ def initializer():
     for x in days.get_objects():
 
         for i in Interface_objects.make_list():
-            print(i)
+            # print(i)
             CSV.create_headers_into_hidden_directories(x,x,i)
 
         for y in range(1,len(days.get_objects()[x])):
