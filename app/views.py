@@ -10,22 +10,16 @@ from os.path import isdir
 from database import Process
 from error_handlers import Error_server
 from app.helpers import check_passwords
-# from app.modeling_algorithm.libs.keys import keys
+
 from app.modeling_algorithm import modeling_initializer
-
-
 from app.modeling_algorithm.libs import CSV
 from app.modeling_algorithm.libs import API_values
 from app.modeling_algorithm.libs.Create_days import Create_days
 from app.modeling_algorithm.libs import Interface_objects
 from app.modeling_algorithm.creating_process import Init_test
 from app.modeling_algorithm.creating_process import main
-# from app.modeling_algorithm.libs.keys import keys
 
 
-#----------------------------#
-#      ROUTES                #
-#----------------------------#
 
 @app.route("/", methods=['GET'])
 def index():
@@ -67,6 +61,8 @@ def presentation():
     })
 
 
+
+# signup
 @app.route("/testing", methods=['GET', 'POST'])
 def testing():
 
