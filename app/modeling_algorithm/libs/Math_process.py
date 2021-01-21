@@ -310,8 +310,8 @@ class Math_process:
 
         return float("{0:.3f}".format((Sxy) / (Sx * Sy)))
 
-    def optimization_gradient_descent(self, objects_data, x_data_model, y_data_model, year_train,year_tested, cloud_type, 
-        time_base, time_prediction ):
+    def optimization_gradient_descent(self, objects_data, x_data_model, y_data_model, 
+        year_train,year_tested, cloud_type, time_base, time_prediction ):
 
         #-------------------------------------------------------#
         #   object_prediction = {                               #
@@ -366,7 +366,8 @@ class Math_process:
             }
         return final_object
 
-    def presenting_model(self, bias_data,model_prediction,cloud_type,y_data_to_be_evaluated, x_data_to_be_tested):
+    def presenting_model(self, bias_data,model_prediction,cloud_type,
+        y_data_to_be_evaluated, x_data_to_be_tested):
 
         proximity = None
         list_proximity = list()
@@ -380,6 +381,7 @@ class Math_process:
                 list_proximity.append(proximity)
             return {
                 'proximity':max(list_proximity),
+                'real_value': y_data_to_be_evaluated,
                 'percent_accuracy': float(((max(list_proximity)*100)/y_data_to_be_evaluated)),
                 'cloud_tyṕe':cloud_type
             }
@@ -390,8 +392,8 @@ class Math_process:
 
 
 
-    def testing_mathematician_model(self, objects_data, x_data_model, y_data_model,year_train, year_tested, cloud_type, 
-        time_base, time_prediction,bias):
+    def testing_mathematician_model(self, objects_data, x_data_model, y_data_model,year_train, 
+        year_tested, cloud_type, time_base, time_prediction,bias):
         '''
         testing the math model taking in account about 
         the values to be proccessed
