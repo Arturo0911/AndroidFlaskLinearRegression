@@ -18,7 +18,7 @@ from app.modeling_algorithm.libs.Create_days import Create_days
 from app.modeling_algorithm.libs import Interface_objects
 from app.modeling_algorithm.creating_process import Init_test
 from app.modeling_algorithm.creating_process import init
-
+from flask_graphql import GraphQLView
 
 
 @app.route("/", methods=['GET'])
@@ -60,6 +60,15 @@ def presentation():
         'info_values': 'process'
         #'init': str()
     })
+
+
+
+app.add_url_rule(
+    '/graphql',
+    view_func=GraphQLView.as_view(
+           'graphql',graphiql=True # Habilita la interfaz GraphiQL
+       )
+   )
 
 
 

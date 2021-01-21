@@ -17,6 +17,7 @@ flask-graphql = "*"
 pymongo = "*"
 flask-pymongo = "*"
 requests = "*"
+flask-mongoengine = "*"
 
 [requires]
 python_version = "3.8"
