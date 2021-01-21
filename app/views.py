@@ -17,7 +17,7 @@ from app.modeling_algorithm.libs import API_values
 from app.modeling_algorithm.libs.Create_days import Create_days
 from app.modeling_algorithm.libs import Interface_objects
 from app.modeling_algorithm.creating_process import Init_test
-from app.modeling_algorithm.creating_process import main
+from app.modeling_algorithm.creating_process import init
 
 
 
@@ -53,11 +53,12 @@ def api():
 def presentation():
     
     init_test = Init_test()
-    info_test = main()
+    info_test = init()
 
     return jsonify({
-        'info': info_test,
-        'info_values': str(init_test._comparative_between_three_years()) 
+        'info': str(info_test),
+        'info_values': 'process'
+        #'init': str()
     })
 
 

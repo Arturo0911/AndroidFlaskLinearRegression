@@ -6,11 +6,13 @@ from app import app
 import math
 from pprint import pprint
 import random
+import statistics
 from concurrent.futures import ThreadPoolExecutor
 from types import new_class 
 import pandas as pd
 import numpy as np
 import seaborn as sns
+from operator import itemgetter
 
 
 #----------------------------------------------#
@@ -308,14 +310,88 @@ class Math_process:
 
         return float("{0:.3f}".format((Sxy) / (Sx * Sy)))
 
+    def optimization_gradient_descent(self, objects_data, x_data_model, y_data_model, year_train,year_tested, cloud_type, 
+        time_base, time_prediction ):
 
-    def optimization_gradient_descent(self):
+        #-------------------------------------------------------#
+        #   object_prediction = {                               #
+        #                                                       #
+        #       'days_tested': list_days_tested,                #
+        #       'dates_matched': list_days_matched,             #
+        #       'accuracy': accuracy,                           #
+        #       'cost_function': cost_function,                 #
+        #       'precission':precission,                        #
+        #       'info': {                                       #
+        #           'cloud_type': cloud_type                    #
+        #           'values_accepted':values_near_to_goal,      #
+        #           'values_tested': values_tested,             #
+        #           'description': ''                           #
+        #       }                                               #
+        #                                                       #
+        #   }                                                   #
+        #-------------------------------------------------------#
         # this method is to verify the errors in the math model
+        # bias = None # initialize as None type
+        # for personal propose, only use a 10000 of iterations, because.
+        # whenever do much more than 10000 iterations, the model loss 
+        # functionallity and the loop never end
+        bias = None
+        iterations = 0
+        bias_lists_accepteds_accuracy = list()
+        
+        while True:
+            iterations += 1
+            bias = random.uniform(-4,2)
+            math_model = self.testing_mathematician_model(objects_data, x_data_model, 
+                y_data_model,year_train, year_tested, cloud_type, time_base, 
+                    time_prediction,bias)
 
-        pass
+            if iterations <= 14000:    
 
-    def testing_mathematician_model(self, objects_data, x_data_model, y_data_model, year_tested, cloud_type, 
-    time_base, time_prediction):
+                if math_model['accuracy'] >= float(80) and math_model['cost_function'] <= float(13.40):
+                    bias_lists_accepteds_accuracy.append({'accuracy':math_model['accuracy'], 
+                        'cost_function':math_model['cost_function'], 'bias':bias  })
+                    break
+            else:
+                break
+        
+        final_object = {"accuracy":math_model['accuracy'],
+            'cloud_type': cloud_type,
+            'bias':bias,
+            'iterations':iterations,
+            "year_model": math_model['year_train'], 
+            "cost_function": math_model['cost_function'],
+            'year_tested': math_model['year_tested'],
+            'math_model': math_model
+            }
+        return final_object
+
+    def presenting_model(self, bias_data,model_prediction,cloud_type,y_data_to_be_evaluated, x_data_to_be_tested):
+
+        proximity = None
+        list_proximity = list()
+        # generate another instance
+        math_model = self.Generate_parameters_from_regression(model_prediction)
+        try:
+            for bias in bias_data:
+                validator = self.y_prediction(math_model['β0'], math_model['β1'], x_data_to_be_tested) + bias
+                proximity = float("{0:.3f}".format( 100 -((validator*100)/y_data_to_be_evaluated)))
+                # if proximity >= -float(15) and proximity <= float(15) :
+                list_proximity.append(proximity)
+            return {
+                'proximity':max(list_proximity),
+                'percent_accuracy': float(((max(list_proximity)*100)/y_data_to_be_evaluated)),
+                'cloud_tyṕe':cloud_type
+            }
+        except Exception as e:
+            return {
+                'error by':str(e)
+            }
+
+
+
+    def testing_mathematician_model(self, objects_data, x_data_model, y_data_model,year_train, year_tested, cloud_type, 
+        time_base, time_prediction,bias):
         '''
         testing the math model taking in account about 
         the values to be proccessed
@@ -340,37 +416,38 @@ class Math_process:
         # Define the intercept 'b' as None value
         # in the gradient descent prove the real value
         # initialize in None to avoid unnecessary numbers
-        b = None # the bias
         percent_difference = None
         validator = None
         percent_accuracy = None
         _description = None
         count_cases = 0 # the position of each loop
         values_near_to_goal = list()
+        values_rejected = list()# to generate cost function
         values_tested = list()
         values_percent = list()
+        values_predicted = list()
         total_error = 0.0 # this one gonna to get all the values without prediction
         # object_prediction = {} # setting the object prediction to append the values including the accuracy
         dates_matched = list() # the days whenever matched betwen prediction and values from the data training
 
 
-                            #-------------------------------------------------------#
-                            #   object_prediction = {                               #
-                            #                                                       #
-                            #       'days_tested': list_days_tested,                #
-                            #       'dates_matched': list_days_matched,             #
-                            #       'accuracy': accuracy,                           #
-                            #       'cost_function': cost_function,                 #
-                            #       'precission':precission,                        #
-                            #       'info': {
-                            #           'cloud_type': cloud_type                    #
-                            #           'values_accepted':values_near_to_goal,      #
-                            #           'values_tested': values_tested,             #
-                            #           'description': ''                           #
-                            #       }                                               #
-                            #                                                       #
-                            #   }                                                   #
-                            #-------------------------------------------------------#
+        #-------------------------------------------------------#
+        #   object_prediction = {                               #
+        #                                                       #
+        #       'days_tested': list_days_tested,                #
+        #       'dates_matched': list_days_matched,             #
+        #       'accuracy': accuracy,                           #
+        #       'cost_function': cost_function,                 #
+        #       'precission':precission,                        #
+        #       'info': {                                       #
+        #           'cloud_type': cloud_type                    #
+        #           'values_accepted':values_near_to_goal,      #
+        #           'values_tested': values_tested,             #
+        #           'description': ''                           #
+        #       }                                               #
+        #                                                       #
+        #   }                                                   #
+        #-------------------------------------------------------#
 
 
         
@@ -382,26 +459,27 @@ class Math_process:
             
             for x,y in zip(x_data_model, y_data_model):
 
-                validator = self.y_prediction(math_model['β0'], math_model['β1'], x)
+                validator = self.y_prediction(math_model['β0'], math_model['β1'], x) + bias
                 # percent_accuracy = float("{0:.3f}".format(((validator*100)/y)))
                 percent_difference = float("{0:.3f}".format( 100 -((validator*100)/y)))
-
+                
                 if percent_difference >= -float(15) and percent_difference <= float(15) :
 
                     values_near_to_goal.append(y)
                     values_tested.append(validator)
                     # values_percent.append(percent_accuracy)
                 else:
-                    continue
+                    values_predicted.append(validator)
+                    values_rejected.append(y)
             
 
             # average_values_accerted = float((sum(values_percent) / (len(values_percent))))
-            percent_accuracy = float("{0:.2f}".format((len(values_near_to_goal)/len(x_data_model))*100))
+            percent_accuracy = float("{0:.4f}".format((len(values_near_to_goal)/len(x_data_model))*100))
             
-            if percent_accuracy >= float(70):
-                _description = """in the case that the days has matched and the percent of accuracy is greater than 70% then the """
-            elif (percent_accuracy < float(70)):
-                _description = ""
+            if percent_accuracy >= float(75):
+                _description = """the values are generated a prediction with a margin error greater than 25% """
+            elif (percent_accuracy < float(75)):
+                _description = """It is difficult to make a correct prediction when the accuracy percentage does not exceed 75%"""
                 pass
             
             for a,b in zip(time_base,time_prediction):
@@ -412,13 +490,16 @@ class Math_process:
 
 
             object_prediction = {
+                'cloud_type':cloud_type,
                 'days_tested': len(time_prediction),
-                'dates_matched':dates_matched,
-                'accuracy':percent_accuracy ,
-                #'cost_function':self.cost_function(),
-                # 'average_values_accerted': average_values_accerted,
+                'dates_matched':len(dates_matched),
+                'dates_accuracy': float( (len(dates_matched)/len(time_prediction)*100)),
+                'year_train':year_train,
+                'accuracy':percent_accuracy,
+                'cost_function': self.cost_function(values_rejected, values_predicted), 
+                'year_tested':year_tested,
+                'bias': bias,
                 'info':{
-                    'cloud_type':cloud_type,
                     'values_acepted':len(values_near_to_goal),
                     'values_tested':len(y_data_model),
                     'description': _description
@@ -435,9 +516,7 @@ class Math_process:
         '''
         Generate another interator to index the dates whenver the phenom metorology happend,
         and append into the another array and make the prediction between the days whenever happen, e.i, 
-        the match with the dates, when dates makes match <3 I love you Arturo, You can anything that you 
-        purpose yourself
-
+        the match with the dates, when dates makes match <3 I love you Arturo, you can do what you propose
         '''
             
     def print_linear_equation(self, beta_0, beta_1):
@@ -465,21 +544,22 @@ class Math_process:
         return counter == len(data) 
     
 
-    def cost_function(self,x_data, y_data, value_prediction):
+    def cost_function(self,values_rejecteds, values_predicteds):
 
-        LIMITER_RANGE = len(x_data)
+        LIMITER_RANGE = len(values_predicteds)
         mean_squared_error = 0.0
         # value prediction we will have to get using the math model
         # representing above; it's not neccessary to use the 
         # 
-        for x in range(LIMITER_RANGE):
+        for x,y in zip(values_rejecteds, values_predicteds):
 
-            mean_squared_error += (y_data[x] - value_prediction)**2
+            mean_squared_error += (x-y)**2
 
-        return float(mean_squared_error/LIMITER_RANGE)
+        return float("{0:.2f}".format(mean_squared_error/(LIMITER_RANGE * 2)))
 
 
     
+
 
 
 
