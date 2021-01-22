@@ -7,10 +7,10 @@ import json
 import os
 from os.path import isdir
 
-from database import Process
+# from database import Process
 from error_handlers import Error_server
 from app.helpers import check_passwords
-
+from app.database.schema import schema
 from app.modeling_algorithm import modeling_initializer
 from app.modeling_algorithm.libs import CSV
 from app.modeling_algorithm.libs import API_values
@@ -66,7 +66,7 @@ def presentation():
 app.add_url_rule(
     '/graphql',
     view_func=GraphQLView.as_view(
-           'graphql',graphiql=True # Habilita la interfaz GraphiQL
+           'graphql',schema = schema,graphiql=True # Habilita la interfaz GraphiQL
        )
    )
 

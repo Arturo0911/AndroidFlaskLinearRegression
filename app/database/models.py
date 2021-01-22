@@ -11,3 +11,6 @@ class Users(db.Document):
     phone_number = db.StringField(required = True)
     email_address = db.StringField(required = True)
     department = db.StringField(required = True)
+
+    username = db.StringField(required = True)
+    password = db.StringField(required = True)

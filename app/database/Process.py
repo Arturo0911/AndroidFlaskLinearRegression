@@ -6,8 +6,35 @@ from flask.wrappers import Response
 from app import mongo
 from bson import json_util
 
-
+from app.database.models import Users
 # Queries
+
+"""
+    @param credentials 
+    @param name = db.StringField(required = True)
+    @param last_name = db.StringField(required = True)
+    @param phone_number = db.StringField(required = True)
+    @param email_address = db.StringField(required = True)
+    @param department = db.StringField(required = True)
+
+    @param username = db.StringField(required = True)
+    @param password = db.StringField(required = True)
+"""
+
+def insert_data(credentials, name, 
+            last_name,phone_number,
+            email_address, department, 
+            username,password):
+    user = Users(credentials = credentials, name = name, last_name = last_name,
+    phone_number = phone_number, email_address = email_address, department = department,
+    username = username, password = password)
+
+    user.save()
+
+
+
+
+
 def insert_data_MONGODB(name, identification,username, password):
     # to store main data into the db
     # the id filed is to identification as cedula or dni
