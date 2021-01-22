@@ -9,7 +9,8 @@ from os.path import isdir
 
 # from database import Process
 from error_handlers import Error_server
-from app.helpers import check_passwords
+from app.helpers.check_passwords import generate_password_hash
+from app.helpers.check_passwords import confirm_password
 from app.database.schema import schema
 from app.modeling_algorithm import modeling_initializer
 from app.modeling_algorithm.libs import CSV
@@ -19,6 +20,13 @@ from app.modeling_algorithm.libs import Interface_objects
 from app.modeling_algorithm.creating_process import Init_test
 from app.modeling_algorithm.creating_process import init
 from flask_graphql import GraphQLView
+
+from app.database.Process import insert_data
+
+
+
+
+
 
 
 @app.route("/", methods=['GET'])
@@ -60,6 +68,38 @@ def presentation():
         'info_values': 'process'
         #'init': str()
     })
+
+
+@app.route("/test_graphql", methods=['GET','POST'])
+def test_graphql():
+
+    if request.method == 'POST':
+
+        try:
+            object_data = {
+                'credentials': request.json['credentials'],
+                'name': request.json['name'],
+                'last_name': request.json['last_name'],
+                'phone_number': request.json['phone_number'],
+                'email_address': request.json['email_address'],
+                'apartment': request.json['apartment'],
+                'username': request.json['username'],
+                'password': generate_password_hash(request.json['password']),
+            }
+
+            insert_data(object_data['credentials'],object_data['name'],
+            object_data['last_name'],object_data['phone_number'],
+            object_data['email_address'],object_data['apartment'],
+            object_data['username'],object_data['password'])
+
+            return jsonify({'status': 'data was saved successfully'})
+
+        except Exception as e:
+            return jsonify({'status': 'error by: '+str(e)})
+        
+    else:
+        
+        return jsonify({'status': 'nothing to show'})
 
 
 

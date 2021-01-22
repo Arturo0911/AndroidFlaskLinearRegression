@@ -3,7 +3,7 @@ Store in Mongo db
 """
 
 from flask.wrappers import Response
-from app import mongo
+# from app import mongo
 from bson import json_util
 
 from app.database.models import Users
