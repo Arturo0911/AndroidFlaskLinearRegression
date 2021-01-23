@@ -103,14 +103,6 @@ def test_graphql():
 
 
 
-app.add_url_rule(
-    '/graphql',
-    view_func=GraphQLView.as_view(
-           'graphql',schema = schema,graphiql=True # Habilita la interfaz GraphiQL
-       )
-   )
-
-
 
 
 # signup
@@ -218,3 +210,14 @@ def android():
             'status': 'GET',
             'status_code': 200
         })
+
+
+
+
+app.add_url_rule(
+    '/graphql',
+    view_func=GraphQLView.as_view(
+           'graphql',schema = schema,graphiql=True # Habilita la interfaz GraphiQL
+    )
+)
+
