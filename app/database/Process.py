@@ -29,7 +29,7 @@ def insert_data(credentials, name,
     phone_number = phone_number, email_address = email_address, department = department,
     username = username, password = password)
 
-    user.save()
+    return user.save()
 
 
 

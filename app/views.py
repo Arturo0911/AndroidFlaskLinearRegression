@@ -91,7 +91,15 @@ def test_graphql():
             object_data['last_name'],object_data['phone_number'],
             object_data['email_address'],object_data['apartment'],
             object_data['username'],object_data['password'])
+           
+            print(insert_data(object_data['credentials'],object_data['name'],
+            object_data['last_name'],object_data['phone_number'],
+            object_data['email_address'],object_data['apartment'],
+            object_data['username'],object_data['password']))
 
+
+
+            
             return jsonify({'status': 'data was saved successfully'})
 
         except Exception as e:
