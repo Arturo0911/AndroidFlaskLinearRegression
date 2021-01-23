@@ -4,11 +4,12 @@
 
 import graphene
 from app.database.models import Users
+from app.database.schema import UserSchema
 
 class Mutation(graphene.ObjectType):
     
     create_user = UserSchema.mutate
-    pass
+    
 
 class Create_user(graphene.Mutation):
 
