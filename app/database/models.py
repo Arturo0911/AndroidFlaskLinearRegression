@@ -18,9 +18,11 @@ class Users(db.Document):
     password = db.StringField(required = True)
 
 
-class Department(db.Docuemt):
-    pass
+class Department(db.Document):
+    
 
+    department_name = db.StringField(required=True)
+    _id_employee = db.StringField(primary_key=True,required=True)
 
 
 

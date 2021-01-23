@@ -1,11 +1,12 @@
 import graphene
 from graphene.relay import Node
-from graphene_mongo import MongoengineConnectionField, MongoengineObjectType
+from graphene_mongo import MongoengineConnectionField, MongoengineObjectType,MongoSchema
 
 from app.database.models import Users as Users_model
 
 
-
+class Users_Schema(MongoSchema):
+    pass
 
 class Users(MongoengineObjectType):
     
