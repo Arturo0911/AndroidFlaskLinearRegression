@@ -21,6 +21,7 @@ class UserSchema(MongoSchema):
 class Query(graphene.ObjectType):
     
     user = UserSchema.single
+    all_users = UserSchema.
     # node = Node.Field()
     # all_users = MongoengineConnectionField(Users)
 

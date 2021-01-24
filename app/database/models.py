@@ -2,6 +2,12 @@
 
 from app.database.connection import db
 
+class Department(db.Document):
+
+    meta = {'collections': 'department'}
+    department_name = db.StringField(required=True)
+    _id_employee = db.StringField(primary_key=True,required=True)
+
 
 class Users(db.Document):
 
@@ -16,12 +22,16 @@ class Users(db.Document):
     password = db.StringField(required = True)
 
 
-class Department(db.Document):
+
+
+
+class Roles(db.Document):
     
 
-    department_name = db.StringField(required=True)
-    _id_employee = db.StringField(primary_key=True,required=True)
-
-
+    name = db.StringField(required = True)
+    name = db.StringField(required = True)
+    name = db.StringField(required = True)
+    name = db.StringField(required = True)
+    name = db.StringField(required = True)
 
 
