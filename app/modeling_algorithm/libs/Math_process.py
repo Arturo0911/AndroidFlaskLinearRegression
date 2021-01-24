@@ -520,6 +520,19 @@ class Math_process:
         and append into the another array and make the prediction between the days whenever happen, e.i, 
         the match with the dates, when dates makes match <3 I love you Arturo, you can do what you propose
         '''
+
+    def _comparations_model_data(self, data_train, data_to_predict):
+
+        """[TODO:]
+
+            - Take the model to generate predictions
+            - use the data to predict, and make a scattered plots
+                with the matches between the data predicted and 
+                the right value
+        """
+
+        
+        return {}
             
     def print_linear_equation(self, beta_0, beta_1):
 
