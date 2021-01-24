@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">PureMango</string>
+    <string name="cancel">Cancel</string>
+    <string name="login_title">Pure Mango </string>
+    <string name="user_field">username</string>
+    <string name="pass_field">password</string>
+    <string name="login_button">LOGIN</string>
+    <string name="no_count">create an account</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="credentials">Ingresa tú número de cédula</string>
+    <string name="save_button">Guardar</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="name_field">Nombres</string>
+    <string name="last_name_field">Apellidos</string>
+    <string name="phonenumber_field">Celular</string>
+    <string name="email_address_field">correo electrónico</string>
+    <string name="usernname_field">usuario</string>
+    <string name="password_field">contraseña</string>
+    <string name="password_2_field">repetir contraseña</string>
+
+    <string-array name="apartments">
+        <item>Tecnología</item>
+        <item>Finanzas</item>
+        <item>Planta</item>
+    </string-array>
+
 </resources>

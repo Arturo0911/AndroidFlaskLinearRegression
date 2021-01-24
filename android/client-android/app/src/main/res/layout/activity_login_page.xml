@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginPage">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:orientation="vertical">
+
+                <!-- Media -->
+                <ImageView
+                    android:layout_width="256dp"
+                    android:layout_height="135dp"
+                    android:layout_marginStart="70dp"
+                    android:scaleType="centerCrop"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Title, secondary and supporting text -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_title"
+                        android:layout_marginStart="45dp"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        />
+
+                </LinearLayout>
+
+                <!-- Buttons -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="15dp"
+                        app:boxStrokeColor="@color/colorPrimaryDark"
+                        android:textColorHint="@color/colorPrimaryDark"
+                        app:hintTextColor="@color/colorPrimaryDark"
+                        android:hint="@string/user_field"
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/userField"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="15dp"
+                        app:boxStrokeColor="@color/colorPrimaryDark"
+                        android:hint="@string/pass_field"
+                        app:startIconTint="@color/colorPrimaryDark"
+                        app:hintTextColor="@color/colorPrimaryDark"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/passField"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="7dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/loginButton"
+                        android:layout_width="350dp"
+                        android:layout_height="55dp"
+                        android:layout_marginStart="25dp"
+                        android:onClick="initLoginButton"
+                        android:text="@string/login_button"
+                        android:textColor="@color/buttonsMain"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/colorPrimaryDark"
+                        app:cornerRadius="?attr/dialogPreferredPadding" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no_count"
+                        android:textColor="@color/colorPrimaryDark"
+                        style="?attr/borderlessButtonStyle"
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/forgot_password"
+                        android:textColor="@color/colorPrimaryDark"
+                        style="?attr/borderlessButtonStyle"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
