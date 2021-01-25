@@ -1,0 +1,15 @@
+
+
+chema{
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    employee
+}
+
+type Mutation {
+    create_employee()
+    update_employee()
+}

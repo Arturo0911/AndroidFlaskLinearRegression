@@ -13,6 +13,9 @@ class Employee(db.Model):
     email_address = db.Column(db.String(100), index= True,nullable=False)
     username = db.Column(db.String(100), index= True,nullable=False)
     password = db.Column(db.String(100), index= True,nullable=False)
+
+    def __repr__(self) -> str:
+        return '<Employee {} {} {} {}>'.format(self.id, self.credentials, self.names, self.last_names)
     
 
 class Department(db.Model):

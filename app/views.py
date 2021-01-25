@@ -19,8 +19,8 @@ from app.modeling_algorithm.libs.Create_days import Create_days
 from app.modeling_algorithm.libs import Interface_objects
 from app.modeling_algorithm.creating_process import Init_test
 from app.modeling_algorithm.creating_process import init
-# from flask_graphql import GraphQLView
-
+from flask_graphql import GraphQLView
+from app.database.schema import schema
 # from app.database.Process import insert_data
 
 
@@ -106,10 +106,10 @@ def testing():
 
 
 
-"""app.add_url_rule(
+app.add_url_rule(
     '/graphql',
     view_func=GraphQLView.as_view(
            'graphql',schema = schema,graphiql=True # Habilita la interfaz GraphiQL
     )
-)"""
+)
 
