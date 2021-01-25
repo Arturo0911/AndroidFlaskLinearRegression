@@ -1,13 +1,11 @@
 from flask import Flask
-# from database import connection
-from flask_pymongo import PyMongo
+from flask_sqlalchemy import SQLAlchemy
 
-from app.database.connection import initialize_app
 app = Flask(__name__)
-app.config['MONGODB_SETTINGS'] = {
-    'host':'mongodb://localhost:27017/PureMango'
-}
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root_arturo:@localhost/PureMango'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-initialize_app(app)
-# mongo = PyMongo(app)
+db = SQLAlchemy(app)
+from app.database.models import *
+db.create_all()
 from app import views

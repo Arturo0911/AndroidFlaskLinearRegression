@@ -5,6 +5,7 @@ CREATE DATABASE PureMAgo;
 
 CREATE TABLE Employee(
     id int(11) PRIMARY KEY auto_increment,
+    credentials varchar(50) not null,
     names varchar(50) not null,
     last_names varchar(50) not null,
     phone_number varchar(50) not null,

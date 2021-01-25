@@ -1,19 +1,7 @@
-"""
-MONGODB DATABASE CONNECTION
-"""
-
-from flask_mongoengine import MongoEngine
-
-def connection():
-    
-    URI_CONNECTION = 'mongodb://localhost:27017/PureMango'
-    
-    return URI_CONNECTION
+from app import app
 
 
-db = MongoEngine()
+# settings to connection to MySQL
 
-def initialize_app(app):
-    
-    db.init_app(app)
+def connections_params():
     pass
