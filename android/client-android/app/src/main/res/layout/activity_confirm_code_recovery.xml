@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginPage">
+    tools:context=".ConfirmCodeRecovery">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -38,7 +39,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/login_title"
+                        android:text="@string/password_recovery"
                         android:layout_marginStart="45dp"
                         android:textAppearance="?attr/textAppearanceHeadline6"
                         />
@@ -61,12 +62,12 @@
                         app:boxStrokeColor="@color/colorPrimaryDark"
                         android:textColorHint="@color/colorPrimaryDark"
                         app:hintTextColor="@color/colorPrimaryDark"
-                        android:hint="@string/user_field"
+                        android:hint="@string/confirm_code"
 
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/userField"
+                            android:id="@+id/codeConfirmation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             />
@@ -79,18 +80,40 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginBottom="15dp"
                         app:boxStrokeColor="@color/colorPrimaryDark"
-                        android:hint="@string/pass_field"
-                        app:startIconTint="@color/colorPrimaryDark"
+                        android:textColorHint="@color/colorPrimaryDark"
                         app:hintTextColor="@color/colorPrimaryDark"
+                        android:hint="@string/new_password"
+
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/passField"
+                            android:id="@+id/newPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="15dp"
+                        app:boxStrokeColor="@color/colorPrimaryDark"
+                        android:textColorHint="@color/colorPrimaryDark"
+                        app:hintTextColor="@color/colorPrimaryDark"
+                        android:hint="@string/repeat_new_password"
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/repeatNewPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
 
                 </LinearLayout>
@@ -101,37 +124,27 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/loginButton"
-                        android:layout_width="350dp"
+                        android:id="@+id/buttonRecoverySend"
+                        android:layout_width="120dp"
                         android:layout_height="55dp"
                         android:layout_marginStart="25dp"
-                        android:onClick="initLoginButton"
-                        android:text="@string/login_button"
+                        android:text="@string/send_button"
+                        android:textColor="@color/buttonsMain"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/colorPrimaryDark"
+                        app:cornerRadius="?attr/dialogPreferredPadding" />
+                    <Button
+                        android:id="@+id/buttonRecoveryCancel"
+                        android:layout_width="120dp"
+                        android:layout_height="55dp"
+                        android:layout_marginStart="110dp"
+                        android:text="@string/cancel_button"
                         android:textColor="@color/buttonsMain"
                         android:textStyle="bold"
                         app:backgroundTint="@color/colorPrimaryDark"
                         app:cornerRadius="?attr/dialogPreferredPadding" />
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:orientation="horizontal">
-                    <com.google.android.material.button.MaterialButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/no_count"
-                        android:textColor="@color/colorPrimaryDark"
-                        style="?attr/borderlessButtonStyle"
-                        />
-                    <com.google.android.material.button.MaterialButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/forgot_password"
-                        android:textColor="@color/colorPrimaryDark"
-                        style="?attr/borderlessButtonStyle"
-                        />
-                </LinearLayout>
+
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>

@@ -12,11 +12,18 @@
     <string name="cancel_button">Cancel</string>
     <string name="name_field">Nombres</string>
     <string name="last_name_field">Apellidos</string>
-    <string name="phonenumber_field">Celular</string>
+    <string name="phonenumber_field">Teléfono</string>
     <string name="email_address_field">correo electrónico</string>
     <string name="usernname_field">usuario</string>
     <string name="password_field">contraseña</string>
     <string name="password_2_field">repetir contraseña</string>
+    <string name="signup_users">Ingrese los datos solicitados</string>
+    <string name="password_recovery">Recuperar contraseña</string>
+    <string name="send_button">Enviar</string>
+    <string name="password_recovery_message">Se enviará un código de recuperación a tu correo electrónico</string>
+    <string name="confirm_code">Confirmar codigo</string>
+    <string name="new_password">Nueva Contraseña</string>
+    <string name="repeat_new_password">Repetir nueva contraseña</string>
 
     <string-array name="apartments">
         <item>Tecnología</item>
