@@ -40,3 +40,11 @@ CREATE TABLE Sales(
     FOREIGN KEY (product_id) REFERENCES Product(product_id)
 
 );
+
+
+
+
+INSERT INTO Department (department_name) VALUES ("Finanzas");
+INSERT INTO Department (department_name) VALUES ("IT");
+INSERT INTO Department (department_name) VALUES ("Marketing");
+INSERT INTO Department (department_name) VALUES ("Produccion");

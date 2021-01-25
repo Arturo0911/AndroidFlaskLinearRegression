@@ -2,15 +2,26 @@ from app import db
 
 
 # define the models to be inserted inserted into MySQL
+
+class Department(db.Model):
+
+    __tablename__ = 'Department'
+    department_id = db.Column(db.Integer, primary_key= True)
+    department_name = db.Column(db.String(100), index= True)
+
+
+
 class Employee(db.Model):
 
     __tablename__ = 'Employee'
-    id = db.Column(db.Integer, primary_key= True)
+    employee_id = db.Column(db.Integer, primary_key= True)
     credentials = db.Column(db.String(100), index= True, unique=True,nullable=False)
     names = db.Column(db.String(100), index= True,nullable=False)
     last_names = db.Column(db.String(100), index= True,nullable=False)
     phone_number = db.Column(db.String(100), index= True,nullable=False)
     email_address = db.Column(db.String(100), index= True,nullable=False)
+    department_id = db.Column(db.Integer, db.ForeignKey('Department.department_id'))
+    department_name = db.Column(db.String(100), index= True,nullable= False)
     username = db.Column(db.String(100), index= True,nullable=False)
     password = db.Column(db.String(100), index= True,nullable=False)
 
@@ -18,14 +29,7 @@ class Employee(db.Model):
         return '<Employee {} {} {} {}>'.format(self.id, self.credentials, self.names, self.last_names)
     
 
-class Department(db.Model):
 
-    __tablename__ = 'Department'
-    id = db.Column(db.Integer, primary_key= True)
-    department_name = db.Column(db.String(100), index= True)
-    id_employee = db.Column(db.Integer, db.ForeignKey("Employee.id"))
-    employee_name = db.Column(db.String(100), index= True,nullable=False)
-    employee_last_name = db.Column(db.String(100), index= True,nullable=False)
 
 class Product(db.Model):
 

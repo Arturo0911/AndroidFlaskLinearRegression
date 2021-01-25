@@ -13,3 +13,80 @@ type Mutation {
     create_employee()
     update_employee()
 }
+
+# all queries
+allDepartmnets(
+name: String
+before: String
+after: String
+first: Int
+last: Int): _DepartmentConnection
+
+{
+  allDepartmnets{
+    edges{
+      node{
+        id
+      }
+    }
+  }
+}
+
+
+
+allEmployee(
+name: String
+before: String
+after: String
+first: Int
+last: Int): _EmployeeConnection
+
+{
+  allEmployee{
+    edges{
+      node{
+        id
+      }
+    }
+  }
+}
+
+
+allProducts(
+name: String
+before: String
+after: String
+first: Int
+last: Int): _ProductConnection
+
+{
+  allProducts{
+    edges{
+      node{
+        id
+      }
+    }
+  }
+}
+
+
+
+
+allSales(
+name: String
+before: String
+after: String
+first: Int
+last: Int): _SalesConnection
+
+
+
+{
+  allSales{
+    edges{
+      node{
+        id
+      }
+    }
+  }
+}
