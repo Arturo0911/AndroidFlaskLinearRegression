@@ -37,7 +37,10 @@ class _Sales(SQLAlchemyObjectType):
         model = Sales
         interfaces = (graphene.relay.Node, )
 
-
+"""class SearchResult(SQLAlchemyObjectType):
+    class Meta:
+        model = _Employee
+"""
 
 
 class Register_employee(graphene.Mutation):
@@ -72,6 +75,7 @@ class Register_employee(graphene.Mutation):
         return Register_employee(employee= employee)
 
 
+
 class Mutation(graphene.ObjectType):
     
     register_employee = Register_employee.Field()
@@ -83,9 +87,23 @@ class Mutation(graphene.ObjectType):
 class Query(graphene.ObjectType):
 
     node = graphene.relay.Node.Field()
+    search = graphene.Field(_Employee, q= graphene.String())
+    # employee_by_credential = graphene.Field(Employee, credential= graphene.String(required=True))
+    # employee_find_one = _Employee.
     all_departmnets = SQLAlchemyConnectionField(_Department, name = graphene.String())
     all_employee = SQLAlchemyConnectionField(_Employee, name = graphene.String())
     all_products = SQLAlchemyConnectionField(_Product, name = graphene.String())
     all_sales = SQLAlchemyConnectionField(_Sales, name = graphene.String())
+
+    def resolve_search(self, info, **args):
+
+        q = args.get("q")
+        employee_query = _Employee.get_query(info)
+
+        employees = employee_query.filter(Employee.credentials == q).first()
+
+        return employees
+
+
 
 schema = graphene.Schema(query= Query, mutation = Mutation,types=[_Employee, _Department, _Product, _Sales])
