@@ -50,3 +50,4 @@ class Sales(db.Model):
     losses = db.Column(db.Float,nullable=False)
 
 
+db.create_all()

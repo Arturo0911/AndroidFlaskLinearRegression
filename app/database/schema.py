@@ -39,36 +39,32 @@ class _Sales(SQLAlchemyObjectType):
 
 
 
-class user_input(graphene.InputObjectType):
-
-    credentials = graphene.String()
-    names = graphene.String()
-    last_names = graphene.String()
-    phone_number = graphene.String()
-    email_address = graphene.String()
-    department_id = graphene.Int()
-    department_name = graphene.String()
-    username = graphene.String()
-    password = graphene.String()
-
-
 
 class Register_employee(graphene.Mutation):
 
     class Arguments:
-        employee_data = user_input()
+        credentials = graphene.String(required=True)
+        names = graphene.String(required=True)
+        last_names = graphene.String(required=True)
+        phone_number = graphene.String(required=True)
+        email_address = graphene.String(required=True)
+        department_id = graphene.Int(required=True)
+        department_name = graphene.String(required=True)
+        username = graphene.String(required=True)
+        password = graphene.String(required=True)
         
     employee = graphene.Field(lambda:_Employee)
 
-    def mutate(self,info,employee_data):
+    def mutate(self,info,credentials, names, last_names, phone_number, email_address,department_id, department_name,
+    username, password):
         
-        department_id = Department.query.filter_by(department_name = employee_data.department_name).first()
+        # department_id = Department.query.filter_by(department_name = department_name).first()
 
         employee = Employee(
-            credentials = employee_data.credentials, names= employee_data.names, last_names= employee_data.last_names, 
-            phone_number=employee_data.phone_number, email_address = employee_data.email_address, 
-            department_id= department_id,department_name = employee_data.department_name,
-            username= employee_data.username,password = str(generate_password_hash(employee_data.password)))
+            credentials = credentials, names= names, last_names= last_names, 
+            phone_number=phone_number, email_address = email_address, 
+            department_id= department_id,department_name = department_name,
+            username= username,password = str(generate_password_hash(password)))
             
         db.session.add(employee)
         db.session.commit()

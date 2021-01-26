@@ -1,3 +1,5 @@
+"""
+
 from app.helpers.check_passwords import password_hash
 import graphene
 from app.database.models import Employee
@@ -46,13 +48,9 @@ class Register_employee(graphene.Mutation):
 
 
 
-"""class Register_department(Mutation):
-
-    pass
-"""
-
-
-
 class Mutation(graphene.ObjectType):
     
     register_employee = Register_employee.Field()
+
+
+"""

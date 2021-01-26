@@ -5,6 +5,36 @@ chema{
     mutation: Mutation
 }
 
+mutation {
+  registerEmployee(
+    credentials:"0918237421", 
+    names: "Arturo Francesco",
+    lastNames: "Negreiros Samanez",
+    phoneNumber: "0963951028",
+    emailAddress: "anegreiross@puremango.ec",
+    departmentId: 2,
+    departmentName: "IT",
+    username: "payload",
+    password: "LikeAStone0101"
+  ){
+    employee{
+      employeeId
+      credentials
+      names
+      lastNames
+      phoneNumber
+      emailAddress
+      departmentId
+      departmentName
+      username
+      password
+    }
+  }
+}
+
+
+
+
 type Query {
     employee
 }
