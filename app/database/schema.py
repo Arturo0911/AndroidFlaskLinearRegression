@@ -1,5 +1,6 @@
 from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
 import graphene
+from graphql import GraphQLError
 # importing the object models in the models file
 from app.database.models import Employee
 from app.database.models import Department
@@ -37,10 +38,7 @@ class _Sales(SQLAlchemyObjectType):
         model = Sales
         interfaces = (graphene.relay.Node, )
 
-"""class SearchResult(SQLAlchemyObjectType):
-    class Meta:
-        model = _Employee
-"""
+
 
 
 class Register_employee(graphene.Mutation):
@@ -75,29 +73,43 @@ class Register_employee(graphene.Mutation):
         return Register_employee(employee= employee)
 
 
-
+# class to get login acces from android client
 class Login_user(graphene.Mutation):
 
     status_message= graphene.Boolean(description= "Request status")
-    
+    body_message = graphene.String(description = "Request message")
+    employee = graphene.Field(_Employee)
+
+    class Input:
+        username = graphene.String(description="User's")
+        password = graphene.String(description="User's password")
 
 
-    class Meta:
-        pass
+    def mutate(self, info, username, password):
 
+        try:
+            vrerify_user = Employee.query.filter_by(username = username).scalar()
+            if vrerify_user:
 
-
-
+                if check_password_hash( vrerify_user.password,password):
+                    status_message = True
+                    body_message = "User verified"
+                    return Login_user(
+                        status_message = status_message,
+                        body_message = body_message,
+                        employee = vrerify_user
+                        )
+            else:
+                raise Exception("credenciales incorrectas") 
+        except Exception as e:
+            raise GraphQLError("No se puede verificar el usuario")
 
 
 
 class Mutation(graphene.ObjectType):
     
     register_employee = Register_employee.Field()
-
-"""class Create_employee():
-    pass
-"""
+    login_user = Login_user.Field()
 
 class Query(graphene.ObjectType):
 

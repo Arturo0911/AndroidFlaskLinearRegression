@@ -32,6 +32,21 @@ mutation {
   }
 }
 
+mutation{
+  loginUser(username: "payload", password:"LikeAStone0101"){
+    employee {
+      credentials
+      names
+      lastNames
+      emailAddress
+      departmentName
+      
+    }
+  }
+}
+
+
+
 # added filtering by credentials
 
 {
