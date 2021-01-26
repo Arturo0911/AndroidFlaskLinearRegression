@@ -13,3 +13,10 @@ flask-mongoengine = "*"
 graphene-mongo = "*"
 graphene-mongodb = "*"
 flask-migrate = "*"
+
+
+
+
+./gradlew downloadApolloSchema \
+  --endpoint="http://127.0.0.1:5000/graphql" \
+  --schema="schema.json"

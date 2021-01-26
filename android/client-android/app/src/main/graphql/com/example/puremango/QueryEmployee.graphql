@@ -1,9 +1,0 @@
-{
-    allEmployee{
-        edges{
-            node{
-                id
-            }
-        }
-    }
-}
