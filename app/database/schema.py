@@ -76,6 +76,21 @@ class Register_employee(graphene.Mutation):
 
 
 
+class Login_user(graphene.Mutation):
+
+    status_message= graphene.Boolean(description= "Request status")
+    
+
+
+    class Meta:
+        pass
+
+
+
+
+
+
+
 class Mutation(graphene.ObjectType):
     
     register_employee = Register_employee.Field()
@@ -88,8 +103,6 @@ class Query(graphene.ObjectType):
 
     node = graphene.relay.Node.Field()
     search = graphene.Field(_Employee, q= graphene.String())
-    # employee_by_credential = graphene.Field(Employee, credential= graphene.String(required=True))
-    # employee_find_one = _Employee.
     all_departmnets = SQLAlchemyConnectionField(_Department, name = graphene.String())
     all_employee = SQLAlchemyConnectionField(_Employee, name = graphene.String())
     all_products = SQLAlchemyConnectionField(_Product, name = graphene.String())
