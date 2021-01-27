@@ -1,0 +1,17 @@
+mutation RegisterEmployee($credentials: String!,
+    $names: String!,
+    $lastNames: String!,
+    $phoneNumber: String!,
+    $emailAddress:String!,
+    $departmentId: Int!,
+    $departmentName:String!,
+    $username:String!,
+    $password:String!
+){
+    registerEmployee(credentials:$credentials, names:$names, lastNames:$lastNames,phoneNumber:$phoneNumber,
+    emailAddress:$emailAddress, departmentId:$departmentId, departmentName: $departmentName, username:$username, password:$password){
+        employee{
+            credentials
+        }
+    }
+}

@@ -1,0 +1,16 @@
+mutation UpdateUsers(
+    $credentials: String!,
+    $names: String!,
+    $lastNames: String!,
+    $phoneNumber: String!,
+    $emailAddress:String!,
+    $username:String!,
+    $password:String!
+){
+    updateUser(credentials:$credentials,names: $names,
+        lastNames: $lastNames, phoneNumber: $phoneNumber, emailAddress:$emailAddress,
+        username:$username, password:$password){
+        statusMessage
+        bodyMessage
+    }
+}

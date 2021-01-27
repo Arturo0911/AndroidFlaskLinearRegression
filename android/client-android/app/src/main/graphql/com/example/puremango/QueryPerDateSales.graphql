@@ -1,0 +1,9 @@
+query QueryPerDateSales($q:String!){
+    search(q: $q){
+        productName
+        timeStart
+        timeEnd
+        income
+        expenses
+    }
+}
