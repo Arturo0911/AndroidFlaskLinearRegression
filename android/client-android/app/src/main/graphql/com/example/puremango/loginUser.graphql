@@ -1,0 +1,12 @@
+mutation loginUser{
+    loginUser(username: String, password:String){
+        employee {
+            credentials
+            names
+            lastNames
+            emailAddress
+            departmentName
+
+        }
+    }
+}

@@ -1,0 +1,10 @@
+query QueryEmployee{
+    allEmployee {
+        edges {
+            node {
+                credentials
+
+            }
+        }
+    }
+}
