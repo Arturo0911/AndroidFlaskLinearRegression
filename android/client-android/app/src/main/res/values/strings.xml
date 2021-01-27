@@ -37,10 +37,10 @@
     <string name="profile_names">Nombres</string>
     <string name="profile_lastnames">Apellidos</string>
 
-    <string-array name="apartments">
-        <item>Tecnología</item>
+    <string-array name="departmentsName">
         <item>Finanzas</item>
-        <item>Planta</item>
+        <item>Marketing</item>
+        <item>Produccion</item>
     </string-array>
 
 </resources>

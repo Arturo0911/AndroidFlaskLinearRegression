@@ -88,22 +88,29 @@ class Login_user(graphene.Mutation):
     def mutate(self, info, username, password):
 
         try:
-            vrerify_user = Employee.query.filter_by(username = username).first()
-            if vrerify_user:
+            verify_user = Employee.query.filter_by(username = username).first()
+            if verify_user:
 
-                if check_password_hash( vrerify_user.password,password):
+                if check_password_hash( verify_user.password,password):
                     status_message = True
                     body_message = "User verified"
                     return Login_user(
                         status_message = status_message,
                         body_message = body_message,
-                        employee = vrerify_user
+                        employee = verify_user
                         )
             else:
-                raise Exception("credenciales incorrectas") 
+                return Login_user(
+                        status_message = False,
+                        body_message = "Credenciales incorrectas",
+                        employee = None
+                        )
         except Exception as e:
-            raise GraphQLError("No se puede verificar el usuario")
-
+            return Login_user(
+                        status_message = False,
+                        body_message = "Problemas en la búsqueda",
+                        employee = None
+                        )
 class Update_user(graphene.Mutation):
 
     status_message= graphene.Boolean(description= "Request status")
@@ -142,7 +149,42 @@ class Update_user(graphene.Mutation):
                 )
 
             except Exception as e:
-                pass
+                return Update_user(
+                    status_message = False,
+                    body_message = "No se pudo actualizar usuario"
+                )
+
+
+class Recover_password(graphene.Mutation):
+
+    status_message= graphene.Boolean(description= "Request status")
+    body_message = graphene.String(description = "Request message")
+    # employee = graphene.Field(_Employee)
+
+    class Input:
+        credentials = graphene.String(required=True)
+        
+
+    def mutate(self, info, credentials):
+
+            try:
+                verify_employee = Employee.query.filter_by(credentials = credentials).first()
+                verify_employee.password = generate_password_hash(credentials)
+
+                status_message = True
+                body_message = "clave actualizada"
+                # db.session.add(verify_employee)
+                db.session.commit()
+                return Update_user(
+                    status_message = status_message,
+                    body_message = body_message
+                )
+
+            except Exception as e:
+                return Update_user(
+                    status_message = False,
+                    body_message = "No se pudo encntrar usuario"
+                )
 
 
 class Mutation(graphene.ObjectType):
@@ -150,6 +192,7 @@ class Mutation(graphene.ObjectType):
     register_employee = Register_employee.Field()
     login_user = Login_user.Field()
     update_user = Update_user.Field()
+    recover_password = Recover_password.Field()
 
 class Query(graphene.ObjectType):
 
@@ -161,12 +204,7 @@ class Query(graphene.ObjectType):
     all_products = SQLAlchemyConnectionField(_Product, name = graphene.String())
     all_sales = SQLAlchemyConnectionField(_Sales, name = graphene.String())
 
-    """def resolve_search_sales(self, info, **args):
-        q = args.get("q")
-        sales_query = _Sales.get_query(info)
-        sales = sales_query.filter(Sales.product_name == q).first()
-        return sales
-    """
+    
     def resolve_search(self, info, **args):
 
         q = args.get("q")

@@ -20,6 +20,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class LoginPage extends AppCompatActivity {
 
     private TextInputEditText userField;
@@ -28,35 +30,40 @@ public class LoginPage extends AppCompatActivity {
     ActionBar actionBar;
 
     public void initLoginButton(View view){
+        loginUser(userField.getText().toString(), passField.getText().toString(), ConnectionServer.urlServer);
+        Intent intent = new Intent(LoginPage.this, MainActivity.class);
+        startActivity(intent);
+
+
+    }
+
+
+    public void loginUser(String username, String password, String urlServer){
+        ApolloClient apolloClient = ApolloClient.builder()
+                .serverUrl(urlServer)
+                .build();
         try {
-            ApolloClient apolloClient = ApolloClient.builder()
-                    .serverUrl(ConnectionServer.urlServer)
-                    .build();
-
-
-            apolloClient.mutate(new LoginUserMutation(userField.getText().toString(), passField.getText().toString()))
+            apolloClient.mutate(new LoginUserMutation(username,password ))
                     .enqueue(new ApolloCall.Callback<LoginUserMutation.Data>() {
                         @Override
                         public void onResponse(@NotNull Response<LoginUserMutation.Data> response) {
-                            //Log.i("response: ", ": "+response.getData().loginUser.employee.credentials);
-                            Employee.credentials = response.getData().loginUser.employee.credentials.toString();
-                            Employee.names = response.getData().loginUser.employee.names.toString();
+                            Employee.credentials = Objects.requireNonNull(Objects.requireNonNull(response.getData().loginUser).employee).credentials.toString();
+                            Employee.names = Objects.requireNonNull(response.getData().loginUser.employee).names.toString();
                             Employee.lastnames = response.getData().loginUser.employee.lastNames.toString();
                             Employee.phoneNumber = response.getData().loginUser.employee.phoneNumber.toString();
                             Employee.emailAddress = response.getData().loginUser.employee.emailAddress.toString();
                             Employee.departmentId = response.getData().loginUser.employee.departmentId;
                             Employee.departmentName = response.getData().loginUser.employee.departmentName.toString();
 
-                            Intent intent = new Intent(LoginPage.this, MainActivity.class);
-                            startActivity(intent);
                         }
 
                         @Override
                         public void onFailure(@NotNull ApolloException e) {
                             e.printStackTrace();
-                            Toast.makeText(LoginPage.this, "Error en la respuesta del servidor", Toast.LENGTH_SHORT).show();
+
                         }
                     });
+
         }catch (Exception e){
             e.printStackTrace();
             Toast.makeText(this, "Error en la conexión con el servidor", Toast.LENGTH_SHORT).show();
