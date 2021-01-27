@@ -44,8 +44,8 @@ class Sales(db.Model):
     sales_id = db.Column(db.Integer, primary_key= True)
     products_id = db.Column(db.Integer, db.ForeignKey('Product.prouct_id'))
     product_name = db.Column(db.String(100), index= True,nullable=False)
-    time_start = db.Column(db.DateTime,nullable=False)
-    time_end = db.Column(db.DateTime,nullable=False)
+    time_start = db.Column(db.String(20),nullable=False)
+    time_end = db.Column(db.String(20),nullable=False)
     income = db.Column(db.Float,nullable=False)
     expenses = db.Column(db.Float,nullable=False)
 

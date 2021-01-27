@@ -1,0 +1,16 @@
+query AllSales {
+
+    allSales {
+        edges {
+            node {
+                productsId
+                productName
+                timeStart
+                timeEnd
+                income
+                expenses
+            }
+        }
+    }
+
+}

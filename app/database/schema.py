@@ -114,20 +114,25 @@ class Mutation(graphene.ObjectType):
 class Query(graphene.ObjectType):
 
     node = graphene.relay.Node.Field()
-    search = graphene.Field(_Employee, q= graphene.String())
+    search = graphene.Field(_Sales, q= graphene.String())
+    # search_sales_time = graphene.Field(_Sales, q = graphene.String())
     all_departmnets = SQLAlchemyConnectionField(_Department, name = graphene.String())
     all_employee = SQLAlchemyConnectionField(_Employee, name = graphene.String())
     all_products = SQLAlchemyConnectionField(_Product, name = graphene.String())
     all_sales = SQLAlchemyConnectionField(_Sales, name = graphene.String())
 
+    """def resolve_search_sales(self, info, **args):
+        q = args.get("q")
+        sales_query = _Sales.get_query(info)
+        sales = sales_query.filter(Sales.product_name == q).first()
+        return sales
+    """
     def resolve_search(self, info, **args):
 
         q = args.get("q")
-        employee_query = _Employee.get_query(info)
-
-        employees = employee_query.filter(Employee.credentials == q).first()
-
-        return employees
+        sales_query = _Sales.get_query(info)
+        sales = sales_query.filter(Sales.time_start == q).first()
+        return sales
 
 
 
