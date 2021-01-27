@@ -104,12 +104,52 @@ class Login_user(graphene.Mutation):
         except Exception as e:
             raise GraphQLError("No se puede verificar el usuario")
 
+class Update_user(graphene.Mutation):
+
+    status_message= graphene.Boolean(description= "Request status")
+    body_message = graphene.String(description = "Request message")
+    # employee = graphene.Field(_Employee)
+
+    class Input:
+        credentials = graphene.String(required=True)
+        names = graphene.String(required=True)
+        last_names = graphene.String(required=True)
+        phone_number = graphene.String(required=True)
+        email_address = graphene.String(required=True)
+        username = graphene.String(required=True)
+        password = graphene.String(required=True)
+
+    def mutate(self, info, credentials, 
+        names, last_names, phone_number, 
+            email_address, username, password):
+
+            try:
+                verify_employee = Employee.query.filter_by(credentials = credentials)
+                verify_employee.names = names
+                verify_employee.last_names = last_names
+                verify_employee.phone_number = phone_number
+                verify_employee.email_address = email_address
+                verify_employee.username = username
+                verify_employee.password = password
+
+                status_message = True
+                body_message = "User verified"
+                db.session.add(verify_employee)
+                db.session.commit()
+                return Update_user(
+                    status_message = status_message,
+                    body_message = body_message
+                )
+
+            except Exception as e:
+                pass
 
 
 class Mutation(graphene.ObjectType):
     
     register_employee = Register_employee.Field()
     login_user = Login_user.Field()
+    update_user = Update_user.Field()
 
 class Query(graphene.ObjectType):
 
