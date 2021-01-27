@@ -1,7 +1,10 @@
 package com.example.puremango;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +18,7 @@ import com.apollographql.apollo.exception.ApolloException;
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
+    ActionBar actionBar;
     private static final String postRquest = "http://" + "10.0.2.2"+":"+5000+"/graphql";
 
     public void onButtonTestClick(View view){
@@ -43,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    public void onTestButton(View view){
+        Toast.makeText(this, "the name of the employee is: "+Employee.names, Toast.LENGTH_SHORT).show();
+    }
 
 
     //private
@@ -52,5 +58,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        actionBar  = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#273036")));
+        actionBar.setTitle("Pure Mango");
     }
 }

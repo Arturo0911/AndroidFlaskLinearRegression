@@ -1,12 +1,13 @@
-mutation loginUser{
-    loginUser(username: String, password:String){
+mutation loginUser($username: String!, $password: String!){
+    loginUser(username: $username, password:$password){
         employee {
             credentials
             names
             lastNames
+            phoneNumber
             emailAddress
+            departmentId
             departmentName
-
         }
     }
 }
