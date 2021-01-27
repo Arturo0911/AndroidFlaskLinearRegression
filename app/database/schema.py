@@ -88,7 +88,7 @@ class Login_user(graphene.Mutation):
     def mutate(self, info, username, password):
 
         try:
-            vrerify_user = Employee.query.filter_by(username = username).scalar()
+            vrerify_user = Employee.query.filter_by(username = username).first()
             if vrerify_user:
 
                 if check_password_hash( vrerify_user.password,password):
@@ -124,17 +124,17 @@ class Update_user(graphene.Mutation):
             email_address, username, password):
 
             try:
-                verify_employee = Employee.query.filter_by(credentials = credentials)
+                verify_employee = Employee.query.filter_by(credentials = credentials).first()
                 verify_employee.names = names
                 verify_employee.last_names = last_names
                 verify_employee.phone_number = phone_number
                 verify_employee.email_address = email_address
                 verify_employee.username = username
-                verify_employee.password = password
+                verify_employee.password = generate_password_hash(password)
 
                 status_message = True
-                body_message = "User verified"
-                db.session.add(verify_employee)
+                body_message = "Empleado actualizado satisfactoriamente"
+                # db.session.add(verify_employee)
                 db.session.commit()
                 return Update_user(
                     status_message = status_message,

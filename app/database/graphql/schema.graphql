@@ -142,3 +142,15 @@ last: Int): _SalesConnection
     }
   }
 }
+
+
+
+
+mutation {
+  updateUser(credentials:"0918237421",names: "Arturon Francis",
+  lastNames: "Negreiros Samanez", phoneNumber: "0990893426", emailAddress:"anegreiross@outlook.com",
+  username:"payload", password:"LikeAStone"){
+    statusMessage
+    bodyMessage
+  }
+}
