@@ -46,8 +46,8 @@ class Sales(db.Model):
     product_name = db.Column(db.String(100), index= True,nullable=False)
     time_start = db.Column(db.DateTime,nullable=False)
     time_end = db.Column(db.DateTime,nullable=False)
-    profit = db.Column(db.Float,nullable=False)
-    losses = db.Column(db.Float,nullable=False)
+    income = db.Column(db.Float,nullable=False)
+    expenses = db.Column(db.Float,nullable=False)
 
 
 db.create_all()
