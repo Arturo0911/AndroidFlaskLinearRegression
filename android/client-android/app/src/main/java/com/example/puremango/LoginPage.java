@@ -38,7 +38,7 @@ public class LoginPage extends AppCompatActivity {
                     .enqueue(new ApolloCall.Callback<LoginUserMutation.Data>() {
                         @Override
                         public void onResponse(@NotNull Response<LoginUserMutation.Data> response) {
-                            Log.i("response: ", ": "+response.getData().loginUser.employee.credentials);
+                            //Log.i("response: ", ": "+response.getData().loginUser.employee.credentials);
                             Employee.credentials = response.getData().loginUser.employee.credentials.toString();
                             Employee.names = response.getData().loginUser.employee.names.toString();
                             Employee.lastnames = response.getData().loginUser.employee.lastNames.toString();
@@ -54,14 +54,12 @@ public class LoginPage extends AppCompatActivity {
                         @Override
                         public void onFailure(@NotNull ApolloException e) {
                             e.printStackTrace();
-                            Toast.makeText(LoginPage.this, "Error in the server response", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginPage.this, "Error en la respuesta del servidor", Toast.LENGTH_SHORT).show();
                         }
                     });
-
-            Toast.makeText(this, "name of the user is: "+Employee.names, Toast.LENGTH_SHORT).show();
         }catch (Exception e){
             e.printStackTrace();
-            Toast.makeText(this, "Error in connection with the server", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error en la conexión con el servidor", Toast.LENGTH_SHORT).show();
         }
     }
 

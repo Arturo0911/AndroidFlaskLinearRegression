@@ -60,6 +60,5 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         actionBar  = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#273036")));
-        actionBar.setTitle("Pure Mango");
     }
 }
