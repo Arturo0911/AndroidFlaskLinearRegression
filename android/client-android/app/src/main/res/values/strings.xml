@@ -39,6 +39,16 @@
     <string name="predictions_settings">Verificar las predicciones</string>
     <string name="banlance_all">Todos los balances</string>
 
+
+
+    <string name="last_state">Estado del último año</string>
+    <string name="product_name">Nombre del producto</string>
+    <string name="time_start">Tiempo de inicio de balance</string>
+    <string name="time_end">Tiempo de final de balance</string>
+    <string name="total_profit">Total de ganancias</string>
+    <string name="total_loss">Total de pérdidas</string>
+    <string name="return_">Volver</string>
+
     <string-array name="departmentsName">
         <item>Finanzas</item>
         <item>Marketing</item>

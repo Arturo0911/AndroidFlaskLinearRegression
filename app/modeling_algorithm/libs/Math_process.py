@@ -13,6 +13,7 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 from operator import itemgetter
+from matplotlib import pyplot as plt
 
 
 #----------------------------------------------#
@@ -371,18 +372,33 @@ class Math_process:
 
         proximity = None
         list_proximity = list()
+        values_tested = list()
+
+        x_list = list()
+        y_list = list()
         # generate another instance
         math_model = self.Generate_parameters_from_regression(model_prediction)
         try:
-            for bias in bias_data:
-                validator = self.y_prediction(math_model['β0'], math_model['β1'], x_data_to_be_tested) + bias
-                proximity = float("{0:.3f}".format( 100 -((validator*100)/y_data_to_be_evaluated)))
-                # if proximity >= -float(15) and proximity <= float(15) :
-                list_proximity.append(proximity)
+            
+            bias = max(bias_data)
+
+            for x,y in zip(x_data_to_be_tested, y_data_to_be_evaluated):
+
+                validator = self.y_prediction(math_model['β0'], math_model['β1'], x) + bias
+                proximity = float("{0:.3f}".format( 100 -((validator*100)/y)))
+                
+                if proximity >= -float(15) and proximity <= float(15) :
+                    list_proximity.append(y)
+                    values_tested.append(validator)
+                else:
+                    continue
+            
+
+            percent_accuracy = float("{0:.4f}".format((len(list_proximity)/len(values_tested))*100))
             return {
                 'proximity':max(list_proximity),
-                'real_value': y_data_to_be_evaluated,
-                'percent_accuracy': float(((max(list_proximity)*100)/y_data_to_be_evaluated)),
+                'porcentaje_precision': float("{0:.4f}".format((len(values_tested) /len(y_data_to_be_evaluated)) *100)),
+                #'percent_accuracy': float(((max(list_proximity)*100)/y_data_to_be_evaluated)),
                 'cloud_tyṕe':cloud_type
             }
         except Exception as e:

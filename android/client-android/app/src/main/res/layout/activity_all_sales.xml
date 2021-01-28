@@ -10,6 +10,189 @@
     android:fillViewport="true"
     tools:context=".AllSales">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Media -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="194dp"
+                    app:srcCompat="@drawable/mangologo"
+                    android:scaleType="centerCrop"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Title, secondary and supporting text -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/last_state"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="35dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/product_name"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+                        <TextView
+                            android:id="@+id/nombreProducto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="100dp"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/time_start"
+                            android:textStyle="bold"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+                        <TextView
+                            android:id="@+id/timeStart"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="60dp"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/time_end"
+                            android:textStyle="bold"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+                        <TextView
+                            android:id="@+id/timeEnd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="67dp"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/total_profit"
+                            android:textStyle="bold"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+                        <TextView
+                            android:id="@+id/Ganancias"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="120dp"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/total_loss"
+                            android:textStyle="bold"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+                        <TextView
+                            android:id="@+id/Perdidas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="130dp"
+                            android:layout_marginTop="8dp"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <!-- Buttons -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton
+                        style="?attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="125dp"
+                        android:onClick="onClickVolver"
+                        android:text="@string/return_"
+                        android:textColor="@color/buttonsMain"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/colorPrimaryDark"
+                        app:cornerRadius="?attr/dialogPreferredPadding"  />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 
 
 </ScrollView>

@@ -357,7 +357,7 @@ def testing_models(cloud_type, year_init, year_to_predict):
         Model_test['time_prediction']
     )
 
-def init():
+def init(x,y):
     
     all_data = main()
 
@@ -372,8 +372,8 @@ def init():
         all_data['bias'],
         all_data['object_data'],
         all_data['cloud_type'],
-        94,
-        24
+        y,
+        x
         )
 
 # init()
