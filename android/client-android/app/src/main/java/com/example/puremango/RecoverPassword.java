@@ -35,6 +35,7 @@ public class RecoverPassword extends AppCompatActivity {
                         @Override
                         public void onResponse(@NotNull Response<RecoverPasswordMutation.Data> response) {
                                  //message =  response.getData().;
+                            //STATUS MENSAJE DEL SERVIDOR VERDEADERO ES QUE SE PUDO RESTAURAR LA CONTRASEÑA
                             message = response.getData().recoverPassword.statusMessage;
                         }
 

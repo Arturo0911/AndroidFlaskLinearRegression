@@ -68,7 +68,6 @@ public class LoginPage extends AppCompatActivity {
                             Employee.departmentName = response.getData().loginUser.employee.departmentName;
                             //Employee.username = response.getData().loginUser.employee.username;
                             //Employee.password = response.getData().loginUser.employee.pas;
-
                         }
 
                         @Override
