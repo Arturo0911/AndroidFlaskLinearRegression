@@ -31,13 +31,14 @@ public class LoginPage extends AppCompatActivity {
 
     public void initLoginButton(View view){
         try {
-            loginUser(userField.getText().toString(), passField.getText().toString(), ConnectionServer.urlServer);
+
+            String username = userField.getText().toString();
+            String password = passField.getText().toString();
+
+            loginUser(username,password, ConnectionServer.urlServer);
         }catch (Exception e){
             Toast.makeText(this, "Error en inicio de sesión", Toast.LENGTH_SHORT).show();
         }
-
-
-
     }
 
 

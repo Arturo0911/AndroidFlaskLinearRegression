@@ -3,6 +3,7 @@ package com.example.puremango;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,37 +27,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView profileNames;
     private TextView profileLastNames;
 
-
-
-    /*public void onButtonTestClick(View view){
-        try {
-            ApolloClient apolloClient = ApolloClient.builder()
-                    .serverUrl(postRquest)
-                    .build();
-
-            apolloClient.query(new QueryEmployeeQuery())
-                    .enqueue(new ApolloCall.Callback<QueryEmployeeQuery.Data>() {
-
-                        @Override
-                        public void onResponse(@NotNull Response<QueryEmployeeQuery.Data> response) {
-                            Log.i("on response: ", "onResponse: "+response.getData().allEmployee.edges.get(0).node.credentials());
-                            //Toast.makeText(MainActivity.this, response.getData().toString(), Toast.LENGTH_SHORT).show();
-                        }
-                        @Override
-                        public void onFailure(@NotNull ApolloException e) {
-                            e.printStackTrace();
-                            //Toast.makeText(MainActivity.this, "Error in: "+e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-        }catch (Exception e){
-            Toast.makeText(this, "Error by: "+e.toString(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void onTestButton(View view){
-        Toast.makeText(this, "the name of the employee is: "+Employee.names, Toast.LENGTH_SHORT).show();
-    }*/
+    private TextView profits;
+    private TextView expenses;
+    int income ;
+    int outcoming ;
 
 
     //private
@@ -76,34 +50,10 @@ public class MainActivity extends AppCompatActivity {
         profileCredential.setText(Employee.credentials);
         profileNames.setText(Employee.names);
         profileLastNames.setText(Employee.lastnames);
+        /*profits.setText((int)LastBalance.income);
+        expenses.setText((int)LastBalance.expenses);*/
 
 
-        /*try {
-            ApolloClient apolloClient = ApolloClient.builder()
-                    .serverUrl(postRquest)
-                    .build();
-
-            apolloClient.query(new AllSalesQuery())
-                    .enqueue(new ApolloCall.Callback<AllSalesQuery.Data>() {
-
-                        @Override
-                        public void onResponse(@NotNull Response<AllSalesQuery.Data> response) {
-                            //Log.i("on response: ", "onResponse: "+response.getData().allEmployee.edges.get(0).node.credentials());
-                            //Toast.makeText(MainActivity.this, response.getData().toString(), Toast.LENGTH_SHORT).show();
-                            profileCredential.setText(response.getData().allSales.edges.get(0).node.credentials);
-                            profileNames.setText(response.getData().allSales.edges.get(0).node.);
-                            profileLastNames.setText(response.getData().allSales.edges.get(0).node.credentials);
-                        }
-                        @Override
-                        public void onFailure(@NotNull ApolloException e) {
-                            e.printStackTrace();
-                            //Toast.makeText(MainActivity.this, "Error in: "+e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-        }catch (Exception e){
-            Toast.makeText(this, "Error by: "+e.toString(), Toast.LENGTH_SHORT).show();
-        }*/
 
 
 
