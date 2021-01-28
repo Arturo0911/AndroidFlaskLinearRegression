@@ -8,4 +8,6 @@ public class Employee {
     public static  String emailAddress;
     public static  Integer departmentId;
     public static  String departmentName;
+    public static  String username;
+    public static  String password;
 }

@@ -8,6 +8,8 @@ mutation loginUser($username: String!, $password: String!){
             emailAddress
             departmentId
             departmentName
+            username
+            password
         }
     }
 }

@@ -29,8 +29,12 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView profits;
     private TextView expenses;
-    int income ;
-    int outcoming ;
+
+
+    public void editProfileButton(View view){
+        Intent intent = new Intent(MainActivity.this, EditProfile.class);
+        startActivity(intent);
+    }
 
 
     //private
@@ -53,9 +57,11 @@ public class MainActivity extends AppCompatActivity {
         /*profits.setText((int)LastBalance.income);
         expenses.setText((int)LastBalance.expenses);*/
 
-
-
-
-
     }
+
+    public void finisheActivity(View view){
+        finish();
+    }
+
+
 }

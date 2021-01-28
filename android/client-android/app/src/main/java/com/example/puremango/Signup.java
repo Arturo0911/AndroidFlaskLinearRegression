@@ -36,6 +36,20 @@ public class Signup extends AppCompatActivity {
     private TextInputEditText passWord;
     private TextInputEditText repeatPassword;
 
+    public boolean notEmptyFields(TextInputEditText credentials, TextInputEditText names,
+                                  TextInputEditText lastnames, TextInputEditText phoneNumber, TextInputEditText emailField,
+                                  TextInputEditText usernameField, TextInputEditText passWord, TextInputEditText repeatPassword){
+
+        if (!credentials.getText().toString().equals("")&& !names.getText().toString().equals("" )&&!lastnames.getText().toString().equals("")
+                &&!phoneNumber.getText().toString().equals("") &&!emailField.getText().toString().equals("") &&!usernameField.getText().toString().equals("")
+                &&!passWord.getText().toString().equals("") &&!repeatPassword.getText().toString().equals("")) {
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
 
     public void saveButtonNewEmployee(View view){
         Toast.makeText(this, "saved button", Toast.LENGTH_SHORT).show();
@@ -50,26 +64,25 @@ public class Signup extends AppCompatActivity {
         String password_  = passWord.getText().toString();
         String repeatPassword_  = repeatPassword.getText().toString();
 
-        if (password_.equals(repeatPassword_)){
-            if (departmentName.getSelectedItem().toString().equals("Finanzas")){
-                departmentId = 1;
-            }else if (departmentName.getSelectedItem().toString().equals("Marketing")){
-                departmentId = 3;
-            }else if (departmentName.getSelectedItem().toString().equals("Produccion")){
-                departmentId = 4;
+        if (notEmptyFields(credentials, names, lastname, phoneNumber, emailField, usernameField, passWord, repeatPassword)){
+            if (password_.equals(repeatPassword_)){
+                if (departmentName.getSelectedItem().toString().equals("Finanzas")){
+                    departmentId = 1;
+                }else if (departmentName.getSelectedItem().toString().equals("Marketing")){
+                    departmentId = 3;
+                }else if (departmentName.getSelectedItem().toString().equals("Produccion")){
+                    departmentId = 4;
+                }
+
+                RegisterEmployeeServer(credentials_, names_, lastnames_, phoneNumber_, emailAddress_,
+                        departmentId, departmentName.getSelectedItem().toString(), username_, password_, ConnectionServer.urlServer);
+                clearFields(credentials, names, lastname, phoneNumber, emailField, usernameField, passWord, repeatPassword);
+            }else{
+                Toast.makeText(this, "Las contraseñas deben ser iguales", Toast.LENGTH_SHORT).show();
             }
-
-            RegisterEmployeeServer(credentials_, names_, lastnames_, phoneNumber_, emailAddress_,
-                    departmentId, departmentName.getSelectedItem().toString(), username_, password_, ConnectionServer.urlServer);
-            clearFields(credentials, names, lastname, phoneNumber, emailField, usernameField, passWord, repeatPassword);
         }else{
-            Toast.makeText(this, "Las contraseñas deben ser iguales", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Los campos no pueden estar vacios", Toast.LENGTH_SHORT).show();
         }
-
-
-
-
-        //Finanzas", "IT", "Marketing","Produccion"
 
 
 

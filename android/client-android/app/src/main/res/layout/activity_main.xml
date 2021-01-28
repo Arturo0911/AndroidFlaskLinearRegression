@@ -329,24 +329,26 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:orientation="horizontal">
+
                     <com.google.android.material.button.MaterialButton
+                        style="?attr/borderlessButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:onClick="editProfileButton"
                         android:text="@string/edit_profile"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textStyle="bold"
-                        style="?attr/borderlessButtonStyle"
-                        />
+                        android:textStyle="bold" />
+
                     <com.google.android.material.button.MaterialButton
+                        style="?attr/borderlessButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="55dp"
+                        android:onClick="finisheActivity"
                         android:text="@string/close_session"
                         android:textColor="@color/colorPrimaryDark"
-                        android:layout_marginStart="55dp"
-                        android:textStyle="bold"
-                        style="?attr/borderlessButtonStyle"
-                        />
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </LinearLayout>

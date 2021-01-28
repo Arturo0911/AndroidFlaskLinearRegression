@@ -25,6 +25,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -40,6 +41,7 @@ public class LoginPage extends AppCompatActivity {
         String password = passField.getText().toString();
         try {
             loginUser(username,password, ConnectionServer.urlServer);
+            clearFields(userField, passField);
         }catch (Exception e){
             Log.i("java error: ", e.toString());
             Toast.makeText(this, ": "+e.toString(), Toast.LENGTH_SHORT).show();
@@ -47,6 +49,8 @@ public class LoginPage extends AppCompatActivity {
     }
 
     public void loginUser(String username, String password, String urlServer){
+
+
         ApolloClient apolloClient = ApolloClient.builder()
                 .serverUrl(urlServer)
                 .build();
@@ -62,8 +66,9 @@ public class LoginPage extends AppCompatActivity {
                             Employee.emailAddress = response.getData().loginUser.employee.emailAddress;
                             Employee.departmentId = response.getData().loginUser.employee.departmentId;
                             Employee.departmentName = response.getData().loginUser.employee.departmentName;
-                            Intent intent = new Intent(LoginPage.this, MainActivity.class);
-                            startActivity(intent);
+                            //Employee.username = response.getData().loginUser.employee.username;
+                            //Employee.password = response.getData().loginUser.employee.pas;
+
                         }
 
                         @Override
@@ -72,6 +77,8 @@ public class LoginPage extends AppCompatActivity {
                         }
                     });
 
+            Intent intent = new Intent(LoginPage.this, MainActivity.class);
+            startActivity(intent);
         }catch (Exception e){
             e.printStackTrace();
             Toast.makeText(this, "Error en la conexión con el servidor", Toast.LENGTH_SHORT).show();
@@ -100,5 +107,10 @@ public class LoginPage extends AppCompatActivity {
         userField = (TextInputEditText) findViewById(R.id.userField);
         passField = (TextInputEditText) findViewById(R.id.passField);
 
+    }
+
+    public void clearFields(TextInputEditText username, TextInputEditText password){
+        username.setText("");
+        password.setText("");
     }
 }
