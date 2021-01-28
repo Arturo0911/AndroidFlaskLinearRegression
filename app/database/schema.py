@@ -198,12 +198,12 @@ class Query(graphene.ObjectType):
 
     node = graphene.relay.Node.Field()
     search = graphene.Field(_Sales, q= graphene.String())
+    order = graphene.Field(_Sales)
     # search_sales_time = graphene.Field(_Sales, q = graphene.String())
     all_departmnets = SQLAlchemyConnectionField(_Department, name = graphene.String())
     all_employee = SQLAlchemyConnectionField(_Employee, name = graphene.String())
     all_products = SQLAlchemyConnectionField(_Product, name = graphene.String())
     all_sales = SQLAlchemyConnectionField(_Sales, name = graphene.String())
-
     
     def resolve_search(self, info, **args):
 
@@ -211,6 +211,13 @@ class Query(graphene.ObjectType):
         sales_query = _Sales.get_query(info)
         sales = sales_query.filter(Sales.time_start == q).first()
         return sales
+    
+    def resolve_order(self, info, **args):
+
+        # values = args.get("values")
+        sales_order = Sales.query.order_by(Sales.income.desc()).first()
+        return sales_order
+
 
 
 
