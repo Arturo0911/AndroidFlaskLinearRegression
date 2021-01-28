@@ -36,6 +36,37 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onClickCheckBalance(View view){
+        ApolloClient apolloClient = ApolloClient.builder()
+                .serverUrl(ConnectionServer.urlServer)
+                .build();
+
+        apolloClient.query(new LastSalesQuery("2019-10-01"))
+                .enqueue(new ApolloCall.Callback<LastSalesQuery.Data>() {
+                    @Override
+                    public void onResponse(@NotNull Response<LastSalesQuery.Data> response) {
+                        LastBalance.timeStart = response.getData().search.timeStart;
+                        LastBalance.timeEnd = response.getData().search.timeEnd;
+                        LastBalance.income = response.getData().search.income;
+                        LastBalance.expenses = response.getData().search.expenses;
+                        LastBalance.productName = response.getData().search.productName;
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull ApolloException e) {
+
+                    }
+                });
+
+
+        Intent intent = new Intent(MainActivity.this, AllSales.class);
+        startActivity(intent);
+    }
+
+    public void onClickPrediction(View view){
+        Intent intent = new Intent(MainActivity.this, Prediction.class);
+        startActivity(intent);
+    }
 
     //private
 

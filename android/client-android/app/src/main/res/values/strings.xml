@@ -25,17 +25,19 @@
     <string name="new_password">Nueva Contraseña</string>
     <string name="repeat_new_password">Repetir nueva contraseña</string>
     <string name="actual_balance">Balance actual</string>
-    <string name="last_balance">Último balance</string>
+    <string name="main_panel">Panel principal</string>
     <string name="profits">Ganancias</string>
     <string name="losses">Pérdidas</string>
     <string name="predictions">predicciones</string>
     <string name="verify_balance">Balances pasados</string>
-    <string name="Profle_settings">Perfil</string>
+    <string name="Profle_settings">Usuario activo</string>
     <string name="edit_profile">Editar perfil</string>
     <string name="close_session">Cerrar sesión</string>
     <string name="profile_credentials">Cédula</string>
     <string name="profile_names">Nombres</string>
     <string name="profile_lastnames">Apellidos</string>
+    <string name="predictions_settings">Verificar las predicciones</string>
+    <string name="banlance_all">Todos los balances</string>
 
     <string-array name="departmentsName">
         <item>Finanzas</item>

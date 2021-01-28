@@ -1,0 +1,9 @@
+query LastSales($q: String!){
+    search(q:$q){
+        productName
+        income
+        expenses
+        timeStart
+        timeEnd
+    }
+}

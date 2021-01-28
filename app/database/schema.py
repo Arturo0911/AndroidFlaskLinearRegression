@@ -39,8 +39,6 @@ class _Sales(SQLAlchemyObjectType):
         interfaces = (graphene.relay.Node, )
 
 
-
-
 class Register_employee(graphene.Mutation):
 
     class Arguments:
@@ -217,7 +215,6 @@ class Query(graphene.ObjectType):
         # values = args.get("values")
         sales_order = Sales.query.order_by(Sales.income.desc()).first()
         return sales_order
-
 
 
 
