@@ -30,9 +30,12 @@ public class LoginPage extends AppCompatActivity {
     ActionBar actionBar;
 
     public void initLoginButton(View view){
-        loginUser(userField.getText().toString(), passField.getText().toString(), ConnectionServer.urlServer);
-        Intent intent = new Intent(LoginPage.this, MainActivity.class);
-        startActivity(intent);
+        try {
+            loginUser(userField.getText().toString(), passField.getText().toString(), ConnectionServer.urlServer);
+        }catch (Exception e){
+            Toast.makeText(this, "Error en inicio de sesión", Toast.LENGTH_SHORT).show();
+        }
+
 
 
     }
@@ -46,20 +49,22 @@ public class LoginPage extends AppCompatActivity {
             apolloClient.mutate(new LoginUserMutation(username,password ))
                     .enqueue(new ApolloCall.Callback<LoginUserMutation.Data>() {
                         @Override
-                        public void onResponse(@NotNull Response<LoginUserMutation.Data> response) {
-                            Employee.credentials = Objects.requireNonNull(Objects.requireNonNull(response.getData().loginUser).employee).credentials.toString();
-                            Employee.names = Objects.requireNonNull(response.getData().loginUser.employee).names.toString();
-                            Employee.lastnames = response.getData().loginUser.employee.lastNames.toString();
-                            Employee.phoneNumber = response.getData().loginUser.employee.phoneNumber.toString();
-                            Employee.emailAddress = response.getData().loginUser.employee.emailAddress.toString();
+                        public void onResponse(@NotNull Response<LoginUserMutation.Data> response)throws ApolloException {
+                            Employee.credentials = response.getData().loginUser.employee.credentials;
+                            Employee.names = response.getData().loginUser.employee.names;
+                            Employee.lastnames = response.getData().loginUser.employee.lastNames;
+                            Employee.phoneNumber = response.getData().loginUser.employee.phoneNumber;
+                            Employee.emailAddress = response.getData().loginUser.employee.emailAddress;
                             Employee.departmentId = response.getData().loginUser.employee.departmentId;
-                            Employee.departmentName = response.getData().loginUser.employee.departmentName.toString();
-
+                            Employee.departmentName = response.getData().loginUser.employee.departmentName;
+                            Intent intent = new Intent(LoginPage.this, MainActivity.class);
+                            startActivity(intent);
                         }
 
                         @Override
                         public void onFailure(@NotNull ApolloException e) {
                             e.printStackTrace();
+                            Toast.makeText(LoginPage.this, "Error with the server", Toast.LENGTH_SHORT).show();
 
                         }
                     });

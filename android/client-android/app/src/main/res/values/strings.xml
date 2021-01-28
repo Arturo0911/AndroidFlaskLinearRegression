@@ -20,7 +20,7 @@
     <string name="signup_users">Ingrese los datos solicitados</string>
     <string name="password_recovery">Recuperar contraseña</string>
     <string name="send_button">Enviar</string>
-    <string name="password_recovery_message">Se enviará un código de recuperación a tu correo electrónico</string>
+    <string name="password_recovery_message">La contraseña será tu número de cédula</string>
     <string name="confirm_code">Confirmar codigo</string>
     <string name="new_password">Nueva Contraseña</string>
     <string name="repeat_new_password">Repetir nueva contraseña</string>
