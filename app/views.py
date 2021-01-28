@@ -1,5 +1,6 @@
 from flask.wrappers import Response
 from app import app
+from app import db
 from bson import json_util
 from flask import jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -23,8 +24,8 @@ from flask_graphql import GraphQLView
 from app.database.schema import schema
 # from app.database.Process import insert_data
 
-
-
+from app.database.Process import login_resolve_process
+from app.database.models import Employee
 
 
 
@@ -69,38 +70,26 @@ def presentation():
         #'init': str()
     })
 
-
-@app.route("/test_graphql", methods=['GET','POST'])
-def test_graphql():
-
-    if request.method == 'POST':
-
-        
-        try :
-            return jsonify({'status': 'data was saved successfully'})
-
-        except Exception as e:
-            return jsonify({'status': 'error by: '+str(e)})
-        
-    else:
-        
-        return jsonify({'status': 'nothing to show'})
-
-
-
-
-
-# signup
-@app.route("/testing", methods=['GET', 'POST'])
-def testing():
+@app.route("/login_resolve", methods=['POST'])
+def login_resolve():
 
     try:
+        
+        username = request.json['Username']
+        password = request.json['Password']
 
-        return "hola"
+        print(username, password)
+        print(login_resolve_process(username, password))
+
+
+        #print(login_resolve_process(username, password))
+        #return jsonify({'message':'ok'})
+
     except Exception as e:
-
+        # print("Aqui es el error")
+        print(str(e))
         return jsonify({
-            "status": str(e)
+            'error': str(e)
         })
 
 

@@ -22,7 +22,7 @@ class Employee(db.Model):
     email_address = db.Column(db.String(100), index= True,nullable=False)
     department_id = db.Column(db.Integer, db.ForeignKey('Department.department_id'))
     department_name = db.Column(db.String(100), index= True,nullable= False)
-    username = db.Column(db.String(100), index= True,nullable=False)
+    username = db.Column(db.String(100),nullable=False)
     password = db.Column(db.String(100), index= True,nullable=False)
 
     def __repr__(self) -> str:

@@ -12,35 +12,39 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.ApolloClient;
-import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
+import org.json.JSONObject;
 
 public class LoginPage extends AppCompatActivity {
 
     private TextInputEditText userField;
     private TextInputEditText passField;
+    private static final String url = "http://" + "10.0.2.2"+":"+5000+"/login_resolve";
+
 
     ActionBar actionBar;
 
     public void initLoginButton(View view){
+        String username = userField.getText().toString();
+        String password = passField.getText().toString();
         try {
-
-            String username = userField.getText().toString();
-            String password = passField.getText().toString();
-
             loginUser(username,password, ConnectionServer.urlServer);
         }catch (Exception e){
-            Toast.makeText(this, "Error en inicio de sesión", Toast.LENGTH_SHORT).show();
+            Log.i("java error: ", e.toString());
+            Toast.makeText(this, ": "+e.toString(), Toast.LENGTH_SHORT).show();
         }
     }
-
 
     public void loginUser(String username, String password, String urlServer){
         ApolloClient apolloClient = ApolloClient.builder()
@@ -48,9 +52,9 @@ public class LoginPage extends AppCompatActivity {
                 .build();
         try {
             apolloClient.mutate(new LoginUserMutation(username,password ))
-                    .enqueue(new ApolloCall.Callback<LoginUserMutation.Data>() {
+                    .enqueue(new ApolloCall.Callback<LoginUserMutation.Data>(){
                         @Override
-                        public void onResponse(@NotNull Response<LoginUserMutation.Data> response)throws ApolloException {
+                        public void onResponse(@NotNull com.apollographql.apollo.api.Response<LoginUserMutation.Data> response) {
                             Employee.credentials = response.getData().loginUser.employee.credentials;
                             Employee.names = response.getData().loginUser.employee.names;
                             Employee.lastnames = response.getData().loginUser.employee.lastNames;
@@ -65,8 +69,6 @@ public class LoginPage extends AppCompatActivity {
                         @Override
                         public void onFailure(@NotNull ApolloException e) {
                             e.printStackTrace();
-                            Toast.makeText(LoginPage.this, "Error with the server", Toast.LENGTH_SHORT).show();
-
                         }
                     });
 
@@ -91,6 +93,7 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
         actionBar  = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#273036")));
         actionBar.setTitle("Pure Mango");
 
