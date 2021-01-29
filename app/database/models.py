@@ -49,5 +49,16 @@ class Sales(db.Model):
     income = db.Column(db.Float,nullable=False)
     expenses = db.Column(db.Float,nullable=False)
 
+class Training_supervised(db.Model):
+
+
+    __tablename__ = 'Training_supervised'
+    training_id = db.Column(db.Integer, primary_key=True)
+    training_year = db.Column(db.String(20), nullable=False)
+    training_value_prediction = db.Column(db.Float,nullable=False)
+    training_value_expected = db.Column(db.Float,nullable=False)
+
+
+
 
 db.create_all()
