@@ -41,18 +41,45 @@ def index():
     })
 
 
-@app.route("/api", methods=['POST'])
+@app.route("/api", methods=['GET','POST'])
 def api():
 
-    if isdir('.csv'):
-        pass
+    if request.method == "POST":
+        if isdir('.csv'):
+            pass
+        else:
+            modeling_initializer.initializer()
+        return jsonify({
+
+            'status':'generated successfully',
+            'status code': 200
+        })
     else:
-        modeling_initializer.initializer()
+        
+        result = schema.execute("""
+                    {
+            allEmployee {
+                edges {
+                node {
+                    employeeId
+                    names
+                    lastNames
+                    
+                }
+                }
+            }
+            }
+        """)
+    
+    for x in result.data['allEmployee']['edges']:
+        print(x['node']['employeeId'], x['node']['names'], x['node']['lastNames'])
+
+
     return jsonify({
 
-        'status':'generated successfully',
-        'status code': 200
-    })
+            'status':'generated successfully',
+            'status code': 200
+        })
 
     
 

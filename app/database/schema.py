@@ -6,6 +6,7 @@ from app.database.models import Employee
 from app.database.models import Department
 from app.database.models import Product
 from app.database.models import Sales
+from app.database.models import Training_supervised
 from app import db
 # import mutations
 
@@ -38,6 +39,11 @@ class _Sales(SQLAlchemyObjectType):
         model = Sales
         interfaces = (graphene.relay.Node, )
 
+class _Training_supervised(SQLAlchemyObjectType):
+    class Meta:
+
+        model = Training_supervised
+        interfaces = (graphene.relay.Node, )
 
 class Register_employee(graphene.Mutation):
 
@@ -109,6 +115,15 @@ class Login_user(graphene.Mutation):
                         body_message = "Problemas en la búsqueda",
                         employee = None
                         )
+
+
+
+"""class Create_training(graphene.Mutation):
+    pass
+"""
+
+
+
 class Update_user(graphene.Mutation):
 
     status_message= graphene.Boolean(description= "Request status")
@@ -202,6 +217,7 @@ class Query(graphene.ObjectType):
     all_employee = SQLAlchemyConnectionField(_Employee, name = graphene.String())
     all_products = SQLAlchemyConnectionField(_Product, name = graphene.String())
     all_sales = SQLAlchemyConnectionField(_Sales, name = graphene.String())
+    all_trainings = SQLAlchemyConnectionField(_Training_supervised, name = graphene.String())
     
     def resolve_search(self, info, **args):
 
@@ -218,4 +234,4 @@ class Query(graphene.ObjectType):
 
 
 
-schema = graphene.Schema(query= Query, mutation = Mutation,types=[_Employee, _Department, _Product, _Sales])
+schema = graphene.Schema(query= Query, mutation = Mutation,types=[_Employee, _Department, _Product, _Sales,_Training_supervised])
