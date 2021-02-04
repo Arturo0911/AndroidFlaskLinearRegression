@@ -1,5 +1,26 @@
 version: "3.9"
 services:
+
+  database:
+    container_name: database
+    image: mysql:5.7
+    restart: always
+    hostname: database
+    networks:
+     - fluxit
+    environment:
+      MYSQL_DATABASE: PureMango
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+      MYSQL_ROOT_PASSWORD: 
+    ports:
+     - "3307:3306"
+    expose:
+     - "3306"
+    volumes:
+     - flask-db:/var/lib/mysql
+
+
   model:
     build: .
     ports:
