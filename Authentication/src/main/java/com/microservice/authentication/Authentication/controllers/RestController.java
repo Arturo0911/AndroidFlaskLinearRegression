@@ -30,19 +30,21 @@ public class RestController {
         return "<h1>Microservice Authentication initialized</h1>";
     }
 
+
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password){
 
         return "the email is: "+email+" and the password is: "+password;
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/user", method = RequestMethod.POST)
     public List<User> returnUsers(@RequestParam(value = "email") String email){
 
         return userDao.findUserByEmail(email);
 
 
-    }
+    }*/
 
 
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
@@ -52,7 +54,12 @@ public class RestController {
     }
 
 
-
+    /**
+     *
+     * @param user object to create new instance
+     * @param result catching al possible errors
+     * @return return null for now
+     */
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
     ResponseEntity<JsonResponseBody>createNewUser(@Valid User user, BindingResult result){
 

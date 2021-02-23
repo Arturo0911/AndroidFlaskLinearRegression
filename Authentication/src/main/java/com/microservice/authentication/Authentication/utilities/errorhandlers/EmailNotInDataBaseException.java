@@ -1,4 +1,4 @@
-package com.microservice.authentication.Authentication.utilities;
+package com.microservice.authentication.Authentication.utilities.errorhandlers;
 
 public class EmailNotInDataBaseException extends Exception {
 
