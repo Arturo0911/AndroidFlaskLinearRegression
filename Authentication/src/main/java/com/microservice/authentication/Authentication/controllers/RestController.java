@@ -20,7 +20,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-@org.springframework.web.bind.annotation.RestController
+@org.springframework.web.bind.annotation.RestController()
 public class RestController {
 
 
