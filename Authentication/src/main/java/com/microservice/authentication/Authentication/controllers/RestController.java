@@ -3,7 +3,10 @@ package com.microservice.authentication.Authentication.controllers;
 
 import com.microservice.authentication.Authentication.daos.UserDao;
 import com.microservice.authentication.Authentication.entities.User;
+import com.microservice.authentication.Authentication.services.UserService;
+import com.microservice.authentication.Authentication.services.UserServiceImplementation;
 import com.microservice.authentication.Authentication.utilities.JsonResponseBody;
+import com.microservice.authentication.Authentication.utilities.errorhandlers.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -20,10 +23,11 @@ import java.util.List;
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
 
-    /*@Autowired
-    JsonResponseBody jsonResponseBody;*/
+
+
     @Autowired
-    UserDao userDao;
+    UserService userService;
+
 
     @RequestMapping("/init")
     public String initSerivice(){
@@ -38,19 +42,23 @@ public class RestController {
         return "the email is: "+email+" and the password is: "+password;
     }
 
-    /*@RequestMapping(value = "/user", method = RequestMethod.POST)
-    public List<User> returnUsers(@RequestParam(value = "email") String email){
-
-        return userDao.findUserByEmail(email);
-
-
-    }*/
 
 
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
-    public User crateUser (@Valid User user){
+    ResponseEntity<JsonResponseBody> crateUser (@Valid User user){
 
-        return user;
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), userService.userAdd(user)));
+        }catch (Exception e ){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new JsonResponseBody(HttpStatus.FORBIDDEN.value(), "Error by: "+e.toString()));
+        }
+    }
+
+    @RequestMapping(value = "/showUsers", method = RequestMethod.GET)
+    ResponseEntity<JsonResponseBody> getAllUsers(){
+
+        return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), userService.getAllUsers()));
     }
 
 

@@ -46,16 +46,27 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public ArrayList<User> getAllUsers() {
-        return userDao.findAllUsers();
+        return userDao.findAll();
     }
 
+    /**
+     *
+     * @param user new User object
+     * @return return the user added in database
+     * @throws UserNotFoundException
+     */
     @Override
-    public User userAdd(User user) throws UserNotFoundException {
-        return null;
+    public User userAdd(User user) {
+        return userDao.save(user);
     }
 
+    /**
+     *
+     * @param email email for search and delete
+     * @throws UserNotFoundException in case that the user not in database
+     */
     @Override
-    public void deleteUserByEmail(String email) throws UserNotFoundException {
-
+    public void deleteUserByEmail(String email) {
+        userDao.deleteByEmail(email);
     }
 }

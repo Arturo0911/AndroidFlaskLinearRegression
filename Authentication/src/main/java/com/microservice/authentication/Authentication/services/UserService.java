@@ -16,7 +16,7 @@ public interface UserService {
 
     Optional<User> getUserFromDb(String email, String password) throws EmailNotInDataBaseException;
     ArrayList<User> getAllUsers();
-    User userAdd(User user) throws UserNotFoundException;
-    void deleteUserByEmail(String email) throws UserNotFoundException;
+    User userAdd(User user) ;
+    void deleteUserByEmail(String email) ;
 
 }
