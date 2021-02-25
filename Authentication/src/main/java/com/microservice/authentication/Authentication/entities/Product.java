@@ -11,6 +11,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -20,7 +22,14 @@ public class Product {
     @Id
     @Column(name = "ID_PRODUCT")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter @Setter
     private Integer idProduct;
+
+    @ManyToMany(mappedBy = "productsSold")
+    @Getter @Setter
+    private Set<Sales> sales = new HashSet<>();
+
+
 
     @Column(name = "PRODUCT_NAME", length = 25)
     @Getter @Setter

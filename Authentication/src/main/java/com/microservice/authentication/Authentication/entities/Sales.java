@@ -1,7 +1,9 @@
 package com.microservice.authentication.Authentication.entities;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,9 +11,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "sales")
+@AllArgsConstructor @NoArgsConstructor
 public class Sales {
 
 
@@ -20,6 +25,14 @@ public class Sales {
     @Getter @Setter
     @Column(name = "ID_SALES")
     private Integer idSales;
+
+    @ManyToMany//(fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
+    @JoinTable(name = "sales_description",
+            joinColumns = @JoinColumn(name = "SALES_ID") ,
+            inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
+    @Getter @Setter
+    private Set<Product> productsSold = new HashSet<>();
+
 
     @Column(name = "PRODUCT_NAME", length = 50)
     @Getter @Setter
