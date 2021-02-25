@@ -25,35 +25,35 @@ public class Customers {
     @Getter @Setter
     private Integer id;
 
-    @Column(name = "NAMES")
+    @Column(name = "NAMES", length = 50)
     @Setter @Getter
     @NotEmpty @NotNull @NotBlank
     private String names;
 
-    @Column(name = "LAST_NAMES")
+    @Column(name = "LAST_NAMES",length = 50)
     @Setter @Getter
     @NotEmpty @NotNull @NotBlank
     private String lastNames;
 
-    @Column(name = "CREDENTIALS")
+    @Column(name = "CREDENTIALS",length = 50)
     @Setter @Getter
     @NotEmpty @NotNull @NotBlank
     private String credentials;
-    
 
-    @Column(name = "EMAIL")
+
+    @Column(name = "EMAIL",length = 50)
     @Setter @Getter
     @NotEmpty @NotNull @NotBlank
     private String email;
 
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "PHONE_NUMBER",length = 50)
     @Setter @Getter
     @NotEmpty @NotNull @NotBlank
     private String phoneNumber;
 
     @Column(name = "BIRTH_DATE")
     @Setter @Getter
-    @NotEmpty @NotNull @NotBlank
+    @NotEmpty @NotNull @NotBlank    
     private Date birthDate;
 
 
