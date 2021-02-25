@@ -6,14 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -21,9 +19,15 @@ import java.util.Date;
 public class Customers {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "CUSTOMER_ID")
     @Getter @Setter
     private Integer id;
+
+    @OneToMany(mappedBy = "customers")
+    @Getter @Setter
+    private Set<Sales> sales;
+
+
 
     @Column(name = "NAMES", length = 50)
     @Setter @Getter

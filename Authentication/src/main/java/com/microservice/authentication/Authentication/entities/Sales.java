@@ -34,6 +34,12 @@ public class Sales {
     private Set<Product> productsSold = new HashSet<>();
 
 
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    @Getter @Setter
+    private Customers customers;
+
+
     @Column(name = "PRODUCT_NAME", length = 50)
     @Getter @Setter
     @NotNull @NotEmpty @NotBlank
